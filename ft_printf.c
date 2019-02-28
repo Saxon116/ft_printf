@@ -6,12 +6,55 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/02/21 09:44:47 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/02/28 16:36:26 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdarg.h>
+#include "libftprintf/libftprintf.h"
+
+int contains(char *str, char c)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		if(str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char check_format(char *fmt)
+{
+	int i;
+	int valid;
+	char *formats;
+	char *flags;
+
+	i = 0;
+	valid = 1;
+	formats = "cspdiouxXf";
+	flags; = " #0123456789-+hl";
+	while(fmt[i] && valid)
+	{
+		if(contains(formats, fmt[i]))
+			return (fmt[i]);
+		if(!contains(flags, fmt[i]))
+			return (NULL);
+		i++;
+	}
+	return (NULL);
+}
+
+void analyse_format(char *fmt, char c)
+{
+
+
+}
 
 void ft_printf(char *fmt, ...)
 {
@@ -21,22 +64,19 @@ void ft_printf(char *fmt, ...)
 
   va_start(ap, fmt);
   while (*fmt)
-  	switch (*fmt++) {
-    case 's':              /* string */
-    	s = va_arg(ap, char *);
-      printf("string %s\n", s);
-      break;
-    case 'd':              /* int */
-      d = va_arg(ap, int);
-      printf("int %d\n", d);
-      break;
-    case 'c':              /* char */
-    /* need a cast here since va_arg only
-    takes fully promoted types */
-    	c = (char) va_arg(ap, int);
-    	printf("char %c\n", c);
-      break;
-    }
+  {
+	  if(*fmt == '%')
+	  {
+		  *fmt++;
+		  c = check_format(fmt);
+		  if(c != NULL)
+		  	ft_putchar(fmt);
+		analyse_format(fmt, c);
+	  }
+	  else
+		  ft_putchar(*fmt);
+	*fmt++;
+  }
     va_end(ap);
 }
 
@@ -44,6 +84,11 @@ void ft_printf(char *fmt, ...)
 int main()
 {
 	char *str = "great im done with printf";
-	ft_printf("sss", str, str);
+	int fieldwidth = 10;
+	double flt = 1612.1234466;
+	int num = 1612;
+	//ft_printf("this is a normal string but wait here comes %oh you missed it");
+	//ft_printf("の", str, str);
+	printf("%&d 00 0006#dの⛱\n", num);
 
 }
