@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/02/28 16:36:26 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/02/28 22:54:34 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ char check_format(char *fmt)
 	i = 0;
 	valid = 1;
 	formats = "cspdiouxXf";
-	flags; = " #0123456789-+hl";
+	flags = " .#0123456789-+hl";
 	while(fmt[i] && valid)
 	{
 		if(contains(formats, fmt[i]))
 			return (fmt[i]);
 		if(!contains(flags, fmt[i]))
-			return (NULL);
+			return ('\0');
 		i++;
 	}
-	return (NULL);
+	return ('\0');
 }
 
 void analyse_format(char *fmt, char c)
@@ -68,14 +68,23 @@ void ft_printf(char *fmt, ...)
 	  if(*fmt == '%')
 	  {
 		  *fmt++;
-		  c = check_format(fmt);
-		  if(c != NULL)
-		  	ft_putchar(fmt);
-		analyse_format(fmt, c);
+			c = check_format(fmt);
+			if(*fmt == '%')
+				ft_putchar('%');
+		  else if(c != '\0')
+			{
+				printf("valid format and flags\n");
+				analyse_format(fmt, c);
+			}
+			else
+			{
+				printf("invalid format and flags\n");
+				//ft_putchar(*fmt);
+			}
 	  }
 	  else
-		  ft_putchar(*fmt);
-	*fmt++;
+		  //ft_putchar(*fmt);
+		*fmt++;
   }
     va_end(ap);
 }
@@ -85,10 +94,11 @@ int main()
 {
 	char *str = "great im done with printf";
 	int fieldwidth = 10;
-	double flt = 1612.1234466;
+	double flt = 1612.123456789;
 	int num = 1612;
 	//ft_printf("this is a normal string but wait here comes %oh you missed it");
-	//ft_printf("の", str, str);
-	printf("%&d 00 0006#dの⛱\n", num);
+	//ft_printf("%.5f", str, str);
+	//printf("%&d 00 0006#dの⛱\n", num);
+	printf("%-10d\n", num);
 
 }
