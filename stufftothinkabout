@@ -1,0 +1,7 @@
+optimizing string analysis
+(what flags will work the same on different formats)
+
+
+Strings:
+- all flags work the same
+- flags after non zero digits are a no-go my guy

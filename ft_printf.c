@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/02/28 22:54:34 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/02 20:22:45 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ int contains(char *str, char c)
 		i++;
 	}
 	return (0);
+}
+
+int flag_after_digit(char *fmt)
+{
+	char
+
 }
 
 char check_format(char *fmt)
@@ -50,11 +56,50 @@ char check_format(char *fmt)
 	return ('\0');
 }
 
-void analyse_format(char *fmt, char c)
+void print_string(char *fmt, char c)
 {
 
 
+
 }
+
+void print_num(va_list ap, char *fmt, char c)
+{
+	int i;
+	double d;
+	float f;
+
+	if(c == 'd')
+	{
+		i = va_arg(ap, int);
+		ft_putnbr(i);
+	}
+
+
+
+}
+
+void analyse_format(va_list ap, char *fmt, char c)
+{
+	int i;
+	char *str_formats = "csp";
+
+	i = 0;
+	str_formats = "csp";
+	if(contains(str_formats, c))
+	{
+		// string!
+
+	}
+	else
+	{
+		//print_num(ap, fmt, c);
+
+	}
+
+
+}
+
 
 void ft_printf(char *fmt, ...)
 {
@@ -73,17 +118,17 @@ void ft_printf(char *fmt, ...)
 				ft_putchar('%');
 		  else if(c != '\0')
 			{
-				printf("valid format and flags\n");
-				analyse_format(fmt, c);
+				//printf("valid format and flags\n");
+				analyse_format(ap, fmt, c);
 			}
 			else
 			{
-				printf("invalid format and flags\n");
+				//printf("invalid format and flags\n");
 				//ft_putchar(*fmt);
 			}
 	  }
 	  else
-		  //ft_putchar(*fmt);
+		  ft_putchar(*fmt);
 		*fmt++;
   }
     va_end(ap);
@@ -97,8 +142,8 @@ int main()
 	double flt = 1612.123456789;
 	int num = 1612;
 	//ft_printf("this is a normal string but wait here comes %oh you missed it");
-	//ft_printf("%.5f", str, str);
 	//printf("%&d 00 0006#dの⛱\n", num);
-	printf("%-10d\n", num);
+	ft_printf("%d", num);
+	//printf("%0+s\n", str);
 
 }
