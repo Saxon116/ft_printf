@@ -6,11 +6,11 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 11:56:15 by nkellum           #+#    #+#             */
-/*   Updated: 2018/11/13 12:13:24 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/07 17:06:55 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libftprintf.h"
 
 char	*ft_strchr(const char *s, int c)
 {

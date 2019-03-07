@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 15:40:16 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/07 17:09:51 by nkellum          ###   ########.fr       */
+/*   Created: 2019/03/07 15:52:58 by nkellum           #+#    #+#             */
+/*   Updated: 2019/03/07 16:51:10 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LIBFTPRINTF_H
-# define FT_LIBFTPRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
+# include <stdio.h>
+# include <stdarg.h>
+# include "libftprintf/libftprintf.h"
 
-void				ft_putnbr(int n);
-void				ft_putchar(char c);
-void				ft_putstr(char const *s);
-char				*ft_strchr(const char *s, int c);
-char				*ft_strsub(char const *s, unsigned int start,
-	size_t len);
+typedef	struct	s_flags
+{
+	char	*fmt_str;
+	char	fmt_char;
+	int	is_str;
+	int	left_adjustment;
+	int	positive_sign;
+	int	space;
+	int	pad_zero;
+	int	hash;
+	int	precision_dot;
+	int	precision_val;
+	int	field_length;
+	int	field_length_val;
+}		t_flags;
 #endif

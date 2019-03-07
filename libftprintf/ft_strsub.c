@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 15:40:16 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/07 17:09:51 by nkellum          ###   ########.fr       */
+/*   Created: 2018/11/20 17:44:36 by nkellum           #+#    #+#             */
+/*   Updated: 2019/03/07 17:06:53 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LIBFTPRINTF_H
-# define FT_LIBFTPRINTF_H
+#include "libftprintf.h"
 
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
+{
+	unsigned int	i;
+	char			*strnew;
 
-void				ft_putnbr(int n);
-void				ft_putchar(char c);
-void				ft_putstr(char const *s);
-char				*ft_strchr(const char *s, int c);
-char				*ft_strsub(char const *s, unsigned int start,
-	size_t len);
-#endif
+	i = 0;
+	if (!s)
+		return (0);
+	if ((strnew = malloc(len + 1)) == NULL)
+		return (0);
+	while (s[i + start] && i < len)
+	{
+		strnew[i] = s[i + start];
+		i++;
+	}
+	strnew[i] = '\0';
+	return (strnew);
+}
