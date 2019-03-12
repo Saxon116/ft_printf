@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/11 15:01:38 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/12 14:41:17 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,7 @@ char check_format(char *fmt)
 	return ('\0');
 }
 
-void print_string(char *fmt, char c)
-{
 
-
-
-}
-
-void print_num(va_list ap, char *fmt, char c)
-{
-	int i;
-	double d;
-	float f;
-
-	if(c == 'd')
-	{
-		i = va_arg(ap, int);
-		//ft_putnbr(i);
-	}
-
-
-
-}
 
 void analyse_format(va_list ap, char *fmt, char c)
 {
@@ -98,7 +77,7 @@ void analyse_format(va_list ap, char *fmt, char c)
 	else
 	{
 		flags->is_str = 0;
-		print_num(ap, fmt, c);
+		print_num(ap, flags);
 	}
 
 
@@ -141,8 +120,8 @@ int main()
 	int num = 1612;
 	//ft_printf("this is a normal string but wait here comes %oh you missed it");
 	//printf("%&d 00 0006#dの⛱\n", num);
-	ft_printf("%0+-10234.223#d", num);
-	//printf("[%0 50.f]\n", flt);
+	//ft_printf("%0+-10234.223#d", num);
+	printf("% +10d", num);
 
 
 }
