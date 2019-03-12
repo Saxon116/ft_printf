@@ -6,12 +6,14 @@
 #    By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 12:50:22 by nkellum           #+#    #+#              #
-#    Updated: 2019/03/07 17:06:58 by nkellum          ###   ########.fr        #
+#    Updated: 2019/03/11 14:17:55 by nkellum          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-SRC = ft_putchar.c ft_putstr.c ft_putnbr.c ft_strchr.c ft_strsub.c
+SRC = ft_putchar.c ft_putstr.c ft_putnbr.c ft_strchr.c ft_strsub.c \
+ft_isdigit.c ft_atoi.c
+
 
 
 OBJ = $(SRC:.c=.o)

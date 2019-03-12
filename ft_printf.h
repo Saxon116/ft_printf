@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 15:52:58 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/07 16:51:10 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/11 14:29:45 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ typedef	struct	s_flags
 	int	precision_dot;
 	int	precision_val;
 	int	field_length;
-	int	field_length_val;
 }		t_flags;
+
+int contains(char *str, char c);
+void get_flags(t_flags *flags);
+
 #endif

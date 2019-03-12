@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 15:40:16 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/11 14:16:16 by nkellum          ###   ########.fr       */
+/*   Created: 2018/11/13 15:19:29 by nkellum           #+#    #+#             */
+/*   Updated: 2019/03/11 14:17:38 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LIBFTPRINTF_H
-# define FT_LIBFTPRINTF_H
+#include "libftprintf.h"
 
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-void				ft_putnbr(int n);
-void				ft_putchar(char c);
-void				ft_putstr(char const *s);
-char				*ft_strchr(const char *s, int c);
-char				*ft_strsub(char const *s, unsigned int start,
-	size_t len);
-int				ft_atoi(const char *str);	
-int				ft_isdigit(int c);
-
-#endif
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}

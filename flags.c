@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:21:44 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/07 17:42:53 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/11 14:51:37 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,58 @@ void	init_flags(t_flags *flags)
 	flags->precision_dot = 0;
 	flags->precision_val = 0;
 	flags->field_length = 0;
-	flags->field_length_val = 0;
 }
 
-void get_flags(t_flags flags)
+int get_pad_zero(t_flags *flags)
 {
 	int i;
 
 	i = 0;
+	while(flags->fmt_str[i])
+	{
+		if(ft_isdigit(flags->fmt_str[i]))
+		{
+			if(flags->fmt_str[i] == '0')
+				return (1);
+			else
+				return (0);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int get_num_in_fmt(t_flags *flags, int skipindex)
+{
+	int i;
+	int startindex;
+	int endindex;
+
+	i = skipindex;
+	startindex = -1;
+	endindex = -1;
+	while(flags->fmt_str[i])
+	{
+		if(ft_isdigit(flags->fmt_str[i]) && startindex == -1)
+			startindex = i;
+		if(!ft_isdigit(flags->fmt_str[i]) && startindex != -1)
+		{
+			endindex = i;
+			break;
+		}
+		i++;
+	}
+	if(startindex != -1 && endindex != -1)
+		return(ft_atoi(ft_strsub(flags->fmt_str, startindex,
+		endindex - startindex)));
+	return (0);
+}
+
+
+void get_flags(t_flags *flags)
+{
+	if(contains(flags->fmt_str, '.'))
+		flags->precision_dot = 1;
 	if(contains(flags->fmt_str, '-'))
 		flags->left_adjustment = 1;
 	if(contains(flags->fmt_str, '+'))
@@ -38,6 +82,13 @@ void get_flags(t_flags flags)
 		flags->space = 1;
 	if(contains(flags->fmt_str, '#'))
 		flags->hash = 1;
-
-
+	flags->pad_zero = get_pad_zero(flags);
+	if(flags->pad_zero)
+		flags->field_length = get_num_in_fmt(flags,
+		(ft_strchr(flags->fmt_str, '0') - flags->fmt_str) + 1);
+	else
+		flags->field_length = get_num_in_fmt(flags, 0);
+	if(flags->precision_dot)
+		flags->precision_val = get_num_in_fmt(flags,
+		(ft_strchr(flags->fmt_str, '.') - flags->fmt_str) + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/07 17:25:31 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/11 15:01:38 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int contains(char *str, char c)
 	}
 	return (0);
 }
-
-
 
 char check_format(char *fmt)
 {
@@ -83,7 +81,11 @@ void analyse_format(va_list ap, char *fmt, char c)
 		return ;
 	flags->fmt_str = ft_strsub(fmt, 0, ft_strchr(fmt, c) - fmt);
 	flags->fmt_char = c;
-	printf("%s\n", flags->fmt_str);
+	get_flags(flags);
+	printf("%s\n", "ft_printf(\"%0+-10234.223#d\", num);");
+	printf("field_length = %d\n", flags->field_length);
+	printf("precision_val = %d\n", flags->precision_val);
+
 
 	i = 0;
 	str_formats = "csp";
@@ -139,10 +141,8 @@ int main()
 	int num = 1612;
 	//ft_printf("this is a normal string but wait here comes %oh you missed it");
 	//printf("%&d 00 0006#dの⛱\n", num);
-	ft_printf("%+-102342#d", num);
-	//printf("[%010+- d]\n", 1612);
-	//printf("[%0+- d]\n", 1612);
-	//printf("[% d]\n", 1612);
+	ft_printf("%0+-10234.223#d", num);
+	//printf("[%0 50.f]\n", flt);
 
 
 }
