@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 15:52:58 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/12 14:28:32 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/13 17:51:22 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef	struct	s_flags
 	char	*fmt_str;
 	char	fmt_char;
 	int	is_str;
+	int	is_neg;
 	int	left_adjustment;
 	int	positive_sign;
 	int	space;
@@ -30,11 +31,13 @@ typedef	struct	s_flags
 	int	precision_dot;
 	int	precision_val;
 	int	field_length;
+	int	i;
+	double	d;
+	float	f;
 }		t_flags;
 
 int contains(char *str, char c);
 void get_flags(t_flags *flags);
 void print_num(va_list ap, t_flags *flags);
-
 
 #endif

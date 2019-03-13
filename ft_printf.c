@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/12 14:41:17 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/13 18:12:18 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char check_format(char *fmt)
 void analyse_format(va_list ap, char *fmt, char c)
 {
 	int i;
-	char *str_formats = "csp";
+	char *str_formats;
 	t_flags *flags;
 
 	if((flags = malloc(sizeof(t_flags))) == NULL)
@@ -61,10 +61,6 @@ void analyse_format(va_list ap, char *fmt, char c)
 	flags->fmt_str = ft_strsub(fmt, 0, ft_strchr(fmt, c) - fmt);
 	flags->fmt_char = c;
 	get_flags(flags);
-	printf("%s\n", "ft_printf(\"%0+-10234.223#d\", num);");
-	printf("field_length = %d\n", flags->field_length);
-	printf("precision_val = %d\n", flags->precision_val);
-
 
 	i = 0;
 	str_formats = "csp";
@@ -79,8 +75,6 @@ void analyse_format(va_list ap, char *fmt, char c)
 		flags->is_str = 0;
 		print_num(ap, flags);
 	}
-
-
 }
 
 
@@ -99,13 +93,16 @@ void ft_printf(char *fmt, ...)
 			c = check_format(fmt);
 			if(*fmt == '%')
 				ft_putchar('%');
-		  else if(c != '\0')
+		  	else if(c != '\0')
+			{
 				analyse_format(ap, fmt, c);
+				fmt += ft_strchr(fmt, c) - fmt;
+			}
 			else
 				ft_putchar(*fmt);
 	  }
 	  else
-	  	//ft_putchar(*fmt);
+	  	ft_putchar(*fmt);
 	*fmt++;
   }
     va_end(ap);
@@ -118,10 +115,9 @@ int main()
 	int fieldwidth = 10;
 	double flt = 1612.123456789;
 	int num = 1612;
-	//ft_printf("this is a normal string but wait here comes %oh you missed it");
-	//printf("%&d 00 0006#dの⛱\n", num);
-	//ft_printf("%0+-10234.223#d", num);
-	printf("% +10d", num);
+
+	printf("% 10.5d\n", 1612);
+	ft_printf("%+d\n", 1612);
 
 
 }

@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:21:44 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/12 13:39:06 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/13 17:51:42 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	init_flags(t_flags *flags)
 {
 	flags->left_adjustment = 0;
+	flags->is_neg = 0;
 	flags->positive_sign = 0;
 	flags->space = 0;
 	flags->pad_zero = 0;
@@ -61,6 +62,8 @@ int get_num_in_fmt(t_flags *flags, int skipindex)
 			endindex = i;
 			break;
 		}
+		if(!flags->fmt_str[i+1] && startindex != -1)
+			endindex = i + 1;
 		i++;
 	}
 	if(startindex != -1 && endindex != -1)
