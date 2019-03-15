@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:39:51 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/13 17:44:23 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/15 11:25:09 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void prioritize(t_flags *flags)
 			flags->space = 0;
 		if(flags->precision_dot && flags->pad_zero)
 			flags->pad_zero = 0;
-		if(flags->precision_dot && flags->left_adjustment)
-			flags->precision_dot = 0;
+		if(flags->pad_zero && flags->left_adjustment)
+			flags->pad_zero = 0;
 	}
 }
