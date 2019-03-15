@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/15 11:29:16 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/15 18:19:28 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 int contains(char *str, char c)
 {
 	int i;
+	int num;
 
 	i = 0;
+	num = 0;
 	while(str[i])
 	{
 		if(str[i] == c)
-			return (1);
+			num++;
 		i++;
 	}
-	return (0);
+	return (num);
 }
 
 char check_format(char *fmt)
@@ -60,6 +62,9 @@ void analyse_format(va_list ap, char *fmt, char c)
 		return ;
 	flags->fmt_str = ft_strsub(fmt, 0, ft_strchr(fmt, c) - fmt);
 	flags->fmt_char = c;
+	flags->h = contains(flags->fmt_str, 'h');
+	flags->l = contains(flags->fmt_str, 'l');
+	printf("h = %d\n l = %d\n", flags->h, flags->l);
 	get_flags(flags);
 
 	i = 0;
@@ -116,8 +121,8 @@ int main()
 	double flt = 1612.123456789;
 	int num = 1612;
 
-	printf("[%-20.10d]\n", 1612);
-	ft_printf("[%-20.10d]\n", 1612);
+	printf("[%hld]\n", 161345352);
+	ft_printf("%-20.10d\n", 1612);
 
 
 }

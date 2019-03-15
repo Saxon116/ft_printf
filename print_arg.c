@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 14:26:00 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/15 11:28:25 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/15 18:21:15 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void print_field(t_flags *flags)
 	&& !flags->pad_zero)
 		ft_putchar('+');
 }
+
 
 void print_num(va_list ap, t_flags *flags)
 {
