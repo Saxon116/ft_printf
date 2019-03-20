@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 14:26:00 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/15 18:21:15 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/18 17:01:17 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,25 @@ int num_length(int num)
 	return (i);
 }
 
-void print_plusorspace(t_flags *flags)
-{
-
-
-}
-
 void print_precision(t_flags *flags)
 {
 	int i;
 
 	i = 0;
-	if(flags->fmt_char == 'd')
+
+	if(flags->is_neg)
 	{
-		if(flags->is_neg)
-		{
-			ft_putchar('-');
-			flags->i = -flags->i;
-		}
-		else if(flags->positive_sign)
-			ft_putchar('+');
-		while(i < flags->precision_val - num_length(flags->i))
-		{
-			ft_putchar('0');
-			i++;
-		}
-		ft_putnbr(flags->i);
+		ft_putchar('-');
+		flags->i = -flags->i;
 	}
+	else if(flags->positive_sign)
+		ft_putchar('+');
+	while(i < flags->precision_val - num_length(flags->i))
+	{
+		ft_putchar('0');
+		i++;
+	}
+	ft_putnbr(flags->i);
 }
 
 void print_field(t_flags *flags)
@@ -96,14 +88,40 @@ void print_field(t_flags *flags)
 		ft_putchar('+');
 }
 
+void apply_conversion_flags(va_list ap, t_flags *flags)
+{
+	if(flags->l != 0)
+	{
+		flags->i = va_arg(ap, long long);
+		if(flags->fmt_char == 'u')
+			flags->i = (unsigned long long) flags->i;
+	}
+	else
+	{
+		flags->i = va_arg(ap, int);
+		if(flags->fmt_char == 'u')
+			flags->i = (unsigned int) flags->i;
+	}
+	if(flags->h != 0)
+	{
+		flags->i = (short int) flags->i;
+		if(flags->fmt_char == 'u')
+			flags->i = (unsigned short int) flags->i;
+		if(flags->h >= 2)
+		{
+			flags->i = (char) flags->i;
+			if(flags->fmt_char == 'u')
+				flags->i = (unsigned char) flags->i;
+		}
+	}
+}
 
 void print_num(va_list ap, t_flags *flags)
 {
-
-
-	if(flags->fmt_char == 'd')
+	if(flags->fmt_char == 'd' || flags->fmt_char == 'i'
+	|| flags->fmt_char == 'u')
 	{
-		flags->i = va_arg(ap, int);
+		apply_conversion_flags(ap, flags);
 		if(flags->i < 0)
 			flags->is_neg = 1;
 		if(!flags->left_adjustment)
@@ -116,6 +134,5 @@ void print_num(va_list ap, t_flags *flags)
 			print_field(flags);
 	}
 
-
-
+	
 }

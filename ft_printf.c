@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/15 18:19:28 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/20 15:30:24 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void analyse_format(va_list ap, char *fmt, char c)
 	flags->fmt_char = c;
 	flags->h = contains(flags->fmt_str, 'h');
 	flags->l = contains(flags->fmt_str, 'l');
-	printf("h = %d\n l = %d\n", flags->h, flags->l);
 	get_flags(flags);
 
 	i = 0;
@@ -119,10 +118,11 @@ int main()
 	char *str = "great im done with printf";
 	int fieldwidth = 10;
 	double flt = 1612.123456789;
-	int num = 1612;
+	int num = -1612;
 
-	printf("[%hld]\n", 161345352);
-	ft_printf("%-20.10d\n", 1612);
+	printf("%d\n", ~(-1612));
+	printf("%s %o\n", ft_itoa_base(num, 16), num);
+	ft_printf("%d\n", 1612);
 
 
 }
