@@ -6,17 +6,51 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 14:26:00 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/18 17:01:17 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/21 23:04:35 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void print_string(t_flags *flags)
+void print_precision_str(char *str, int precision)
 {
+	int i;
 
+	i = 0;
+	while(i < precision && str[i])
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
+}
 
+void print_string(va_list ap, t_flags *flags)
+{
+	int i;
 
+	i = 0;
+	if(flags->fmt_char == 's')
+		flags->str = va_arg(ap, char *);
+	if(flags->fmt_char == 'c')
+		flags->c = va_arg(ap, int);
+	printf("field_length is %d\n", flags->precision_val);
+	while(i < flags->field_length - (1 * (flags->fmt_char == 'c'))
+	- (ft_strlen(flags->str) * (flags->precision_val == 0))
+	- flags->precision_val)
+	{
+		ft_putchar(' ');
+		i++;
+	}
+	i = 0;
+	if(flags->fmt_char == 's')
+	{
+		if(flags->precision_val > 0)
+			print_precision_str(flags->str, flags->precision_val);
+		else
+			ft_putstr(flags->str);
+	}
+	if(flags->fmt_char == 'c')
+		ft_putchar(flags->c);
 }
 
 int num_length(int num)
@@ -134,5 +168,5 @@ void print_num(va_list ap, t_flags *flags)
 			print_field(flags);
 	}
 
-	
+
 }

@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 15:52:58 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/15 18:08:17 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/21 16:25:44 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,14 @@ typedef	struct	s_flags
 	long long	i;
 	double	d;
 	float	f;
+	char	*str;
+	char	c;
 }		t_flags;
 
 int contains(char *str, char c);
 void get_flags(t_flags *flags);
 void print_num(va_list ap, t_flags *flags);
+void print_string(va_list ap, t_flags *flags);
+
 
 #endif

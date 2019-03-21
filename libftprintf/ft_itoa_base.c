@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:05:28 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/20 15:23:54 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/20 15:37:53 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ft_pow(int nb, int pow)
 		return (nb * ft_pow(nb, pow - 1));
 }
 
-char	*ft_itoa_base(int value, int base)
+char	*ft_itoa_base(long long value, int base)
 {
 	int		i;
 	char	*nbr;

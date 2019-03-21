@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 15:40:16 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/20 14:09:33 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/21 22:03:23 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ char				*ft_strsub(char const *s, unsigned int start,
 	size_t len);
 int				ft_atoi(const char *str);
 int				ft_isdigit(int c);
-char				*ft_itoa_base(int value, int base);
+char				*ft_itoa_base(long long value, int base);
+int				ft_strlen(char *str);
+
 
 
 #endif

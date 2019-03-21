@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:21:44 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/13 17:51:42 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/21 22:57:17 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,23 @@ int get_num_in_fmt(t_flags *flags, int skipindex)
 	return (0);
 }
 
+int num_before_precision(t_flags *flags)
+{
+	int i;
+
+	i = 0;
+	if(contains(flags->fmt_str, '.'))
+	{
+		while(flags->fmt_str[i] && flags->fmt_str[i] != '.')
+		{
+			if(ft_isdigit(flags->fmt_str[i])
+			&& flags->fmt_str[i] != '0')
+				return (1);
+		}
+		return (0);
+	}
+	return (1);
+}
 
 void get_flags(t_flags *flags)
 {
@@ -87,10 +104,15 @@ void get_flags(t_flags *flags)
 		flags->hash = 1;
 	flags->pad_zero = get_pad_zero(flags);
 	if(flags->pad_zero)
-		flags->field_length = get_num_in_fmt(flags,
-		(ft_strchr(flags->fmt_str, '0') - flags->fmt_str) + 1);
+	{
+		if(num_before_precision(flags))
+			flags->field_length = get_num_in_fmt(flags,
+			(ft_strchr(flags->fmt_str, '0')
+			- flags->fmt_str) + 1);
+	}
 	else
-		flags->field_length = get_num_in_fmt(flags, 0);
+		if(num_before_precision(flags))
+			flags->field_length = get_num_in_fmt(flags, 0);
 	if(flags->precision_dot)
 		flags->precision_val = get_num_in_fmt(flags,
 		(ft_strchr(flags->fmt_str, '.') - flags->fmt_str) + 1);

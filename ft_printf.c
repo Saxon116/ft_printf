@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/20 15:30:24 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/21 23:05:05 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void analyse_format(va_list ap, char *fmt, char c)
 	if(contains(str_formats, c))
 	{
 		flags->is_str = 1;
-		// string!
+		print_string(ap, flags);
 
 	}
 	else
@@ -118,11 +118,11 @@ int main()
 	char *str = "great im done with printf";
 	int fieldwidth = 10;
 	double flt = 1612.123456789;
-	int num = -1612;
+	int num = 23;
+	char c = 'B';
 
-	printf("%d\n", ~(-1612));
-	printf("%s %o\n", ft_itoa_base(num, 16), num);
-	ft_printf("%d\n", 1612);
+	printf("%20.10s\n", str);
+	ft_printf("%20.10s\n", str);
 
 
 }
