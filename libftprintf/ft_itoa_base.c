@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:05:28 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/20 15:37:53 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/25 13:25:21 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char	*ft_itoa_base(long long value, int base)
 			neg = 1;
 		value *= -1;
 	}
-	value = ~value;
 	while (ft_pow(base, i) - 1 < value)
 		i++;
 	nbr = (char*)malloc(sizeof(nbr) * i);

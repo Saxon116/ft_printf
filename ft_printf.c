@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/21 23:05:05 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/25 17:28:12 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,16 @@ void ft_printf(char *fmt, ...)
 
 int main()
 {
-	char *str = "great im done with printf";
 	int fieldwidth = 10;
 	double flt = 1612.123456789;
-	int num = 23;
-	char c = 'B';
+	int  num = 123455;
+	//char *str = ft_itoa_base(num, 16);
+	long long i = (char) num;
+	i = ft_atoi_base(ft_itoa_base(i, 8), 10);
+	//char *str =
 
-	printf("%20.10s\n", str);
-	ft_printf("%20.10s\n", str);
+	printf("%d %hho\n", i, num);
+	//printf("%s\n", str);
 
 
 }

@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 15:40:16 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/21 22:03:23 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/25 13:09:06 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ int				ft_atoi(const char *str);
 int				ft_isdigit(int c);
 char				*ft_itoa_base(long long value, int base);
 int				ft_strlen(char *str);
+long long			ft_atoi_base(char *nb, int base);
+int				ft_pow(int nb, int pow);
+
+
 
 
 

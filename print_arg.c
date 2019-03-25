@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 14:26:00 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/21 23:04:35 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/25 12:33:35 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void print_string(va_list ap, t_flags *flags)
 		flags->str = va_arg(ap, char *);
 	if(flags->fmt_char == 'c')
 		flags->c = va_arg(ap, int);
-	printf("field_length is %d\n", flags->precision_val);
 	while(i < flags->field_length - (1 * (flags->fmt_char == 'c'))
 	- (ft_strlen(flags->str) * (flags->precision_val == 0))
 	- flags->precision_val)
