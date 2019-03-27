@@ -6,13 +6,13 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:05:28 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/25 13:25:21 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/27 19:55:03 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		ft_pow(int nb, int pow)
+long long ft_pow(int nb, int pow)
 {
 	if (pow == 0)
 		return (1);

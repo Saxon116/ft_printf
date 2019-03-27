@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/25 17:28:12 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/27 20:45:49 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,16 @@ int main()
 {
 	int fieldwidth = 10;
 	double flt = 1612.123456789;
-	int  num = 123455;
+	int num = 1612;
 	//char *str = ft_itoa_base(num, 16);
-	long long i = (char) num;
-	i = ft_atoi_base(ft_itoa_base(i, 8), 10);
+	//long long i = (char) num;
+	char *str = ft_itoa_base(4294843841, 8);
+	long long i = ft_atoi_base(ft_itoa_base(4294843841, 8), 10);
 	//char *str =
 
-	printf("%d %hho\n", i, num);
-	//printf("%s\n", str);
+	//printf("%s %010o\n", ft_itoa_base(num, 16), num);
+	printf("%010X\n", num);
+	//ft_printf("%llo\n", num);
 
 
 }
