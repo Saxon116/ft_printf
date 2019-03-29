@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/27 20:45:49 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/29 14:30:54 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,8 @@ void analyse_format(va_list ap, char *fmt, char c)
 	flags->h = contains(flags->fmt_str, 'h');
 	flags->l = contains(flags->fmt_str, 'l');
 	get_flags(flags);
-
 	i = 0;
-	str_formats = "csp";
+	str_formats = "cs";
 	if(contains(str_formats, c))
 	{
 		flags->is_str = 1;
@@ -117,15 +116,18 @@ int main()
 {
 	int fieldwidth = 10;
 	double flt = 1612.123456789;
-	int num = 1612;
+	unsigned long long num = 161216121612161212;
+	void *ptr = &flt;
 	//char *str = ft_itoa_base(num, 16);
 	//long long i = (char) num;
-	char *str = ft_itoa_base(4294843841, 8);
-	long long i = ft_atoi_base(ft_itoa_base(4294843841, 8), 10);
+	//char *str = ft_itoa_base(4294843841, 8);
+	//long long i = ft_atoi_base(ft_itoa_base(4294843841, 8), 10);
 	//char *str =
 
-	//printf("%s %010o\n", ft_itoa_base(num, 16), num);
-	printf("%010X\n", num);
+	//printf(0"%s %010o\n", ft_itoa_base(num, 16), num);
+	//ft_printf("12345678901234567890\n");
+	printf("%p\n", ptr);
+	ft_printf("%p\n", ptr);
 	//ft_printf("%llo\n", num);
 
 

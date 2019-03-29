@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 14:26:00 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/27 20:46:57 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/29 14:26:04 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ void print_octal(va_list ap, t_flags *flags)
 		flags->i = (unsigned short int) flags->i;
 	if(flags->h >= 2)
 		flags->i = (unsigned char) flags->i;
-	flags->i = ft_atoi_base(ft_itoa_base(flags->i, 8), 10);
+	flags->i = ft_atoi_base(ft_itoa_base(flags->i, 8, 0), 10);
 	if(!flags->left_adjustment)
 		print_field(flags);
 	if(flags->precision_dot)
@@ -167,9 +167,65 @@ void print_octal(va_list ap, t_flags *flags)
 		print_field(flags);
 }
 
+void print_field_hex(t_flags *flags, int length)
+{
+	int i = 0;
+
+	i = 0;
+	while(i < (flags->field_length - length
+		- flags->precision_dot * (flags->precision_val - length)))
+	{
+		if(flags->pad_zero)
+			ft_putchar('0');
+		else
+			ft_putchar(' ');
+		i++;
+	}
+}
+
+void print_precision_hex(t_flags *flags, int length)
+{
+	int i;
+
+	i = 0;
+	while(i < flags->precision_val - length)
+	{
+		ft_putchar('0');
+		i++;
+	}
+}
+
+
 void print_hex(va_list ap, t_flags *flags)
 {
+	int length;
 
+	void *ptr;
+	if(flags->fmt_char == 'p')
+	{
+		ptr = va_arg(ap, void *);
+		flags->i = (long long) ptr;
+	}
+	else
+		flags->i = va_arg(ap, unsigned long long);
+	if(flags->h == 1 && flags->fmt_char != 'p')
+		flags->i = (unsigned short int) flags->i;
+	if(flags->h >= 2 && flags->fmt_char != 'p')
+		flags->i = (char) flags->i;
+	length = ft_strlen(ft_itoa_base(flags->i, 16, 0));
+	if(flags->fmt_char == 'p')
+		length += 2;
+	if(!flags->left_adjustment)
+		print_field_hex(flags, length);
+	if(flags->fmt_char == 'p')
+		ft_putstr("0x");
+	print_precision_hex(flags, length);
+	if(flags->fmt_char == 'x' || flags->fmt_char == 'p')
+		ft_putstr(ft_itoa_base(flags->i, 16, 1));
+	else
+		ft_putstr(ft_itoa_base(flags->i, 16, 0));
+	if(flags->left_adjustment)
+		print_field_hex(flags, length);
 }
 
 void print_num(va_list ap, t_flags *flags)
@@ -191,8 +247,7 @@ void print_num(va_list ap, t_flags *flags)
 	}
 	if(flags->fmt_char == 'o')
 		print_octal(ap, flags);
-	if(flags->fmt_char == 'x' || flags->fmt_char == 'X')
+	if(flags->fmt_char == 'x' || flags->fmt_char == 'X'
+	|| flags->fmt_char == 'p')
 		print_hex(ap, flags);
-
-
 }

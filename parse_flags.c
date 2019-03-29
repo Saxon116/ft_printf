@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:21:44 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/21 22:57:17 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/03/28 15:17:43 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int num_before_precision(t_flags *flags)
 			if(ft_isdigit(flags->fmt_str[i])
 			&& flags->fmt_str[i] != '0')
 				return (1);
+			i++;
 		}
 		return (0);
 	}
@@ -116,4 +117,5 @@ void get_flags(t_flags *flags)
 	if(flags->precision_dot)
 		flags->precision_val = get_num_in_fmt(flags,
 		(ft_strchr(flags->fmt_str, '.') - flags->fmt_str) + 1);
+	prioritize(flags);
 }
