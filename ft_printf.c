@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/29 14:30:54 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/01 18:36:39 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,21 @@ void ft_printf(char *fmt, ...)
 }
 
 
+void ft_putdbl(double d)
+{
+	int i;
+
+	i = d;
+	ft_putnbr(i);
+	d = (d - i) * 10000000000;
+	ft_putchar('.');
+	ft_putnbr((int) d);
+}
+
 int main()
 {
 	int fieldwidth = 10;
-	double flt = 1612.123456789;
+	double flt = 3.95;
 	unsigned long long num = 161216121612161212;
 	void *ptr = &flt;
 	//char *str = ft_itoa_base(num, 16);
@@ -126,8 +137,9 @@ int main()
 
 	//printf(0"%s %010o\n", ft_itoa_base(num, 16), num);
 	//ft_printf("12345678901234567890\n");
-	printf("%p\n", ptr);
-	ft_printf("%p\n", ptr);
+	printf("%f\n", flt);
+	ft_putdbl(flt);
+
 	//ft_printf("%llo\n", num);
 
 
