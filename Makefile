@@ -14,6 +14,7 @@ all:$(NAME)
 
 $(NAME): $(OBJ)
 	make -C libftprintf
+	mv libftprintf/libftprintf.a .
 
 clean:
 	/bin/rm -f $(OBJ)
