@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 17:45:50 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/03 18:04:30 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/03 18:33:26 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void ft_putdbl(int precision, int *array, int num)
 	}
 }
 
-int *apply_precision(int apply, int precision, int *array, int num)
+void apply_precision(int apply, int precision, int *array, int num)
 {
 	int i;
 
