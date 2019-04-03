@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 15:52:58 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/03 17:59:07 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/03 19:10:07 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void print_num(va_list ap, t_flags *flags);
 void print_string(va_list ap, t_flags *flags);
 void prioritize(t_flags *flags);
 void print_double(va_list ap, t_flags *flags);
+void ft_printf(const char *fmt, ...);
 
 
 

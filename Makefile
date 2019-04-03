@@ -6,7 +6,7 @@ endif
 
 all:$(NAME)
 
-$(NAME): libftprintf/libftprintf.a
+$(NAME): libftprintf.a
 	make -C libftprintf
 	mv libftprintf/libftprintf.a .
 
