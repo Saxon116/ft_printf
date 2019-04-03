@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 14:26:00 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/29 14:26:04 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/03 18:04:05 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,4 +250,10 @@ void print_num(va_list ap, t_flags *flags)
 	if(flags->fmt_char == 'x' || flags->fmt_char == 'X'
 	|| flags->fmt_char == 'p')
 		print_hex(ap, flags);
+	if(flags->fmt_char == 'f')
+	{
+		flags->precision_val =
+		flags->precision_dot ? flags->precision_val : 6;
+		print_double(ap, flags);
+	}
 }
