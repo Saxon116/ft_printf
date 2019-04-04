@@ -6,12 +6,11 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:05:28 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 14:04:30 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/04 15:22:52 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include <stdio.h>
 
 long long ft_pow(long long nb, int pow)
 {

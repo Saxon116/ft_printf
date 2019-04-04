@@ -6,13 +6,13 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 10:45:59 by nkellum           #+#    #+#             */
-/*   Updated: 2019/02/28 14:36:33 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/04 15:15:46 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_putstr(char const *s)
+void	ft_putstr(char const *s, t_flags *flags)
 {
 	int i;
 
@@ -21,7 +21,7 @@ void	ft_putstr(char const *s)
 		return ;
 	while (s[i])
 	{
-		ft_putchar(s[i]);
+		ft_putchar(s[i], flags);
 		i++;
 	}
 }

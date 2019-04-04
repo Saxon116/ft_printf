@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:21:44 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/28 15:17:43 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/04 18:52:32 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void	init_flags(t_flags *flags)
 	flags->precision_dot = 0;
 	flags->precision_val = 0;
 	flags->field_length = 0;
+	flags->h = 0;
+	flags->l = 0;
+	flags->L = 0;
+	flags->str = "";
 }
 
 int get_pad_zero(t_flags *flags)

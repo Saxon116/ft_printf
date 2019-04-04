@@ -6,20 +6,20 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 10:40:08 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/18 14:45:26 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/04 15:33:57 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_putnbr(long long n)
+void	ft_putnbr(long long n, t_flags *flags)
 {
 	if (n < 0)
 	{
-		ft_putchar('-');
+		ft_putchar('-', flags);
 		n = -n;
 	}
 	if (n >= 10)
-		ft_putnbr(n / 10);
-	ft_putchar((n % 10) + '0');
+		ft_putnbr(n / 10, flags);
+	ft_putchar((n % 10) + '0', flags);
 }

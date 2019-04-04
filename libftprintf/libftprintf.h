@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 15:40:16 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 13:35:55 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/04 15:29:26 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "../ft_printf.h"
 
-void				ft_putnbr(long long n);
-void				ft_putchar(char c);
-void				ft_putstr(char const *s);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strsub(char const *s, unsigned int start,
 	size_t len);

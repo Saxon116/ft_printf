@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 14:09:48 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/04 15:37:31 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,13 @@ int ft_printf(const char *fmt, ...)
 {
 	va_list ap;
 	int d;
-	char c, *s;
+	int chars_printed;
+	char c;
 	t_flags *flags;
 
 	if((flags = malloc(sizeof(t_flags))) == NULL)
 		return 0;
+	flags->chars_printed = 0;
 
   va_start(ap, fmt);
   while (*fmt)
@@ -97,43 +99,21 @@ int ft_printf(const char *fmt, ...)
 		  fmt++;
 			c = check_format(fmt);
 			if(*fmt == '%')
-				ft_putchar('%');
+				ft_putchar('%', flags);
 		  	else if(c != '\0')
 			{
 				analyse_format(ap, fmt, c, flags);
 				fmt += ft_strchr(fmt, c) - fmt;
 			}
 			else
-				ft_putchar(*fmt);
+				ft_putchar(*fmt, flags);
 	  }
 	  else
-	  	ft_putchar(*fmt);
+	  	ft_putchar(*fmt, flags);
 	fmt++;
   }
+	chars_printed = flags->chars_printed;
   	free(flags);
     va_end(ap);
-	return (16);
+	return (chars_printed);
 }
-
-//
-// int main()
-// {
-// 	int fieldwidth = 10;
-// 	float flt = .123;
-// 	unsigned long long num = 161216121612161212;
-// 	//void *ptr = &flt;
-// 	//char *str = ft_itoa_base(num, 16);
-// 	//long long i = (char) num;
-// 	//char *str = ft_itoa_base(4294843841, 8);
-// 	//long long i = ft_atoi_base(ft_itoa_base(4294843841, 8), 10);
-// 	//char *str =
-//
-// 	//printf(0"%s %010o\n", ft_itoa_base(num, 16), num);
-// 	//ft_printf("12345678901234567890\n");
-// 	printf("%lf\n", flt);
-// 	ft_printf("%f\n", flt);
-//
-// 	//ft_printf("%llo\n", num);
-//
-//
-// }

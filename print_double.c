@@ -6,36 +6,36 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 17:45:50 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/03 18:33:26 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/04 15:32:41 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void ft_putdbl(int precision, int *array, int num)
+void ft_putdbl(t_flags *flags, int *array, int num)
 {
 	int i;
 
 	i = 0;
-	ft_putnbr(num);
-	ft_putchar('.');
+	ft_putnbr(num, flags);
+	ft_putchar('.', flags);
 	i = 0;
-	while(i < precision)
+	while(i < flags->precision_val)
 	{
-		ft_putnbr(array[i]);
+		ft_putnbr(array[i], flags);
 		i++;
 	}
 }
 
-void apply_precision(int apply, int precision, int *array, int num)
+void apply_precision(int apply, t_flags *flags, int *array, int num)
 {
 	int i;
 
 	i = 0;
 	if(apply)
 	{
-		array[precision - 1]++;
-		i = precision - 1;
+		array[flags->precision_val - 1]++;
+		i = flags->precision_val - 1;
 		while(i >= 0)
 		{
 			if(array[i] > 9)
@@ -49,7 +49,7 @@ void apply_precision(int apply, int precision, int *array, int num)
 			i--;
 		}
 	}
-	ft_putdbl(precision, array, num);
+	ft_putdbl(flags, array, num);
 }
 
 void print_double(va_list ap, t_flags *flags)
@@ -64,7 +64,7 @@ void print_double(va_list ap, t_flags *flags)
 	num = (int) d;
 	if(flags->precision_val == 0)
 	{
-		ft_putnbr(num);
+		ft_putnbr(num, flags);
 		return ;
 	}
 	double m = d - num;
@@ -78,5 +78,5 @@ void print_double(va_list ap, t_flags *flags)
 		i++;
 	}
 	m *= 10;
-	apply_precision((int) m >= 5, flags->precision_val, array, num);
+	apply_precision((int) m >= 5, flags, array, num);
 }

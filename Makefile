@@ -6,12 +6,13 @@
 #    By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 12:50:22 by nkellum           #+#    #+#              #
-#    Updated: 2019/04/04 12:25:53 by nkellum          ###   ########.fr        #
+#    Updated: 2019/04/04 16:14:17 by nkellum          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-SRC = flag_priority.c parse_flags.c print_arg.c print_double.c ft_printf.c
+SRC = flag_priority.c parse_flags.c print_arg.c print_double.c ft_printf.c \
+print_hex.c
 
 SRC_PATH_AUX = ./libftprintf
 SRC_AUX = ft_putchar.c ft_putstr.c ft_putnbr.c ft_strchr.c ft_strsub.c \

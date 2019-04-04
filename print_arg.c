@@ -6,20 +6,34 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 14:26:00 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 14:02:17 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/04 19:21:34 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void print_precision_str(char *str, int precision)
+void print_precision_str(t_flags *flags)
 {
 	int i;
 
 	i = 0;
-	while(i < precision && str[i])
+	while(i < flags->precision_val && flags->str[i])
 	{
-		ft_putchar(str[i]);
+		ft_putchar(flags->str[i], flags);
+		i++;
+	}
+}
+
+void print_string_field(t_flags *flags)
+{
+	int i;
+
+	i = 0;
+	while(i < flags->field_length - (1 * (flags->fmt_char == 'c'))
+	- (ft_strlen(flags->str) * (flags->precision_val == 0))
+	- (flags->precision_val * (ft_strlen(flags->str) != 0)))
+	{
+		ft_putchar(' ', flags);
 		i++;
 	}
 }
@@ -31,25 +45,26 @@ void print_string(va_list ap, t_flags *flags)
 	i = 0;
 	if(flags->fmt_char == 's')
 		flags->str = va_arg(ap, char *);
+	if(flags->str == NULL)
+	{
+		ft_putstr("(null)", flags);
+		return ;
+	}
 	if(flags->fmt_char == 'c')
 		flags->c = va_arg(ap, int);
-	while(i < flags->field_length - (1 * (flags->fmt_char == 'c'))
-	- (ft_strlen(flags->str) * (flags->precision_val == 0))
-	- flags->precision_val)
-	{
-		ft_putchar(' ');
-		i++;
-	}
-	i = 0;
+	if(!flags->left_adjustment)
+		print_string_field(flags);
 	if(flags->fmt_char == 's')
 	{
 		if(flags->precision_val > 0)
-			print_precision_str(flags->str, flags->precision_val);
+			print_precision_str(flags);
 		else
-			ft_putstr(flags->str);
+			ft_putstr(flags->str, flags);
 	}
 	if(flags->fmt_char == 'c')
-		ft_putchar(flags->c);
+		ft_putchar(flags->c, flags);
+	if(flags->left_adjustment)
+		print_string_field(flags);
 }
 
 int num_length(int num)
@@ -76,17 +91,33 @@ void print_precision(t_flags *flags)
 
 	if(flags->is_neg)
 	{
-		ft_putchar('-');
+		ft_putchar('-', flags);
 		flags->i = -flags->i;
 	}
 	else if(flags->positive_sign)
-		ft_putchar('+');
+		ft_putchar('+', flags);
 	while(i < flags->precision_val - num_length(flags->i))
 	{
-		ft_putchar('0');
+		ft_putchar('0', flags);
 		i++;
 	}
-	ft_putnbr(flags->i);
+	ft_putnbr(flags->i, flags);
+}
+
+void print_field_sign(t_flags *flags)
+{
+	if(flags->pad_zero && !flags->precision_dot && flags->is_neg)
+	{
+		ft_putchar('-', flags);
+		flags->i = -flags->i;
+		flags->field_length--;
+	}
+	if(flags->positive_sign && !flags->precision_dot && !flags->is_neg
+	&& flags->pad_zero)
+		ft_putchar('+', flags);
+	if(flags->space && flags->field_length <= (num_length(flags->i))
+	&& flags->i > 0)
+		ft_putchar(' ', flags);
 }
 
 void print_field(t_flags *flags)
@@ -94,38 +125,28 @@ void print_field(t_flags *flags)
 	int i;
 
 	i = 0;
-	if(flags->pad_zero && !flags->precision_dot && flags->is_neg)
-	{
-		ft_putchar('-');
-		flags->i = -flags->i;
-		flags->field_length--;
-	}
-	if(flags->positive_sign && !flags->precision_dot && !flags->is_neg
-	&& flags->pad_zero)
-		ft_putchar('+');
-	if(flags->space && flags->field_length <= (num_length(flags->i)))
-		ft_putchar(' ');
+	print_field_sign(flags);
 	while(i < flags->field_length - (num_length(flags->i)
 	+ (flags->precision_val - num_length(flags->i))
 	* flags->precision_dot) - (flags->is_neg * flags->precision_dot)
 	- (flags->positive_sign * !flags->is_neg))
 	{
 		if(flags->pad_zero && !flags->precision_dot)
-			ft_putchar('0');
+			ft_putchar('0', flags);
 		else
-			ft_putchar(' ');
+			ft_putchar(' ', flags);
 		i++;
 	}
 	if(flags->positive_sign && !flags->precision_dot && !flags->is_neg
 	&& !flags->pad_zero)
-		ft_putchar('+');
+		ft_putchar('+', flags);
 }
 
 void apply_conversion_flags(va_list ap, t_flags *flags)
 {
 	if(flags->l != 0)
 	{
-		flags->i = va_arg(ap, long long);
+		flags->i = va_arg(ap, unsigned long long int);
 		if(flags->fmt_char == 'u')
 			flags->i = (unsigned long long) flags->i;
 	}
@@ -149,84 +170,49 @@ void apply_conversion_flags(va_list ap, t_flags *flags)
 	}
 }
 
+int check_octal_format(t_flags *flags)
+{
+	int i;
+
+	i = 0;
+	if(flags->precision_dot && !flags->precision_val
+		&& flags->i == 0 && !flags->hash)
+	{
+		while(i < flags->field_length)
+		{
+			ft_putchar(' ', flags);
+			i++;
+		}
+		return (0);
+	}
+	return (1);
+}
+
 void print_octal(va_list ap, t_flags *flags)
 {
+	if(!check_octal_format(flags))
+		return ;
 	flags->i = va_arg(ap, unsigned long long);
 	if(flags->h == 1)
 		flags->i = (unsigned short int) flags->i;
 	if(flags->h >= 2)
 		flags->i = (unsigned char) flags->i;
 	flags->i = ft_atoi_base(ft_itoa_base(flags->i, 8, 0), 10);
+	if(flags->hash && !flags->precision_dot)
+		flags->field_length--;
 	if(!flags->left_adjustment)
 		print_field(flags);
+	if(flags->hash && !flags->precision_dot)
+		ft_putchar('0', flags);
 	if(flags->precision_dot)
 		print_precision(flags);
 	else
-		ft_putnbr(flags->i);
+		ft_putnbr(flags->i, flags);
 	if(flags->left_adjustment)
 		print_field(flags);
 }
 
-void print_field_hex(t_flags *flags, int length)
-{
-	int i = 0;
 
-	i = 0;
-	while(i < (flags->field_length - length
-		- flags->precision_dot * (flags->precision_val - length)))
-	{
-		if(flags->pad_zero)
-			ft_putchar('0');
-		else
-			ft_putchar(' ');
-		i++;
-	}
-}
-
-void print_precision_hex(t_flags *flags, int length)
-{
-	int i;
-
-	i = 0;
-	while(i < flags->precision_val - length)
-	{
-		ft_putchar('0');
-		i++;
-	}
-}
-
-
-void print_hex(va_list ap, t_flags *flags)
-{
-	int length;
-
-	void *ptr;
-	if(flags->fmt_char == 'p')
-	{
-		ptr = va_arg(ap, void *);
-		flags->i = (long long) ptr;
-	}
-	else
-		flags->i = va_arg(ap, unsigned long long);
-	if(flags->h == 1 && flags->fmt_char != 'p')
-		flags->i = (unsigned short int) flags->i;
-	if(flags->h >= 2 && flags->fmt_char != 'p')
-		flags->i = (char) flags->i;
-	length = ft_strlen(ft_itoa_base(flags->i, 16, 0));
-	if(flags->fmt_char == 'p')
-		length += 2;
-	if(!flags->left_adjustment)
-		print_field_hex(flags, length);
-	if(flags->fmt_char == 'p')
-		ft_putstr("0x");
-	print_precision_hex(flags, length);
-	if(flags->fmt_char == 'x' || flags->fmt_char == 'p')
-		ft_putstr(ft_itoa_base(flags->i, 16, 1));
-	else
-		ft_putstr(ft_itoa_base(flags->i, 16, 0));
-	if(flags->left_adjustment)
-		print_field_hex(flags, length);
-}
 
 void print_num(va_list ap, t_flags *flags)
 {
@@ -241,7 +227,7 @@ void print_num(va_list ap, t_flags *flags)
 		if(flags->precision_dot)
 			print_precision(flags);
 		else
-			ft_putnbr(flags->i);
+			ft_putnbr(flags->i, flags);
 		if(flags->left_adjustment)
 			print_field(flags);
 	}
