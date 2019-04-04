@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/03 18:14:31 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/04 14:09:48 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,12 @@ char check_format(char *fmt)
 
 
 
-void analyse_format(va_list ap, char *fmt, char c)
+void analyse_format(va_list ap, char *fmt, char c, t_flags *flags)
 {
 	int i;
 	char *str_formats;
-	t_flags *flags;
 
-	if((flags = malloc(sizeof(t_flags))) == NULL)
-		return ;
+	init_flags(flags);
 	flags->fmt_str = ft_strsub(fmt, 0, ft_strchr(fmt, c) - fmt);
 	flags->fmt_char = c;
 	flags->h = contains(flags->fmt_str, 'h');
@@ -81,11 +79,15 @@ void analyse_format(va_list ap, char *fmt, char c)
 }
 
 
-void ft_printf(char *fmt, ...)
+int ft_printf(const char *fmt, ...)
 {
 	va_list ap;
 	int d;
 	char c, *s;
+	t_flags *flags;
+
+	if((flags = malloc(sizeof(t_flags))) == NULL)
+		return 0;
 
   va_start(ap, fmt);
   while (*fmt)
@@ -98,7 +100,7 @@ void ft_printf(char *fmt, ...)
 				ft_putchar('%');
 		  	else if(c != '\0')
 			{
-				analyse_format(ap, fmt, c);
+				analyse_format(ap, fmt, c, flags);
 				fmt += ft_strchr(fmt, c) - fmt;
 			}
 			else
@@ -108,10 +110,12 @@ void ft_printf(char *fmt, ...)
 	  	ft_putchar(*fmt);
 	fmt++;
   }
+  	free(flags);
     va_end(ap);
+	return (16);
 }
 
-// 
+//
 // int main()
 // {
 // 	int fieldwidth = 10;

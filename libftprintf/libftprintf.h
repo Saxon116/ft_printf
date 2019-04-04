@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 15:40:16 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/28 12:05:16 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/04 13:35:55 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char				*ft_itoa_base(long long value, int base,
 	int lowercase);
 int				ft_strlen(char *str);
 long long			ft_atoi_base(char *nb, int base);
-long long			ft_pow(int nb, int pow);
+long long			ft_pow(long long nb, int pow);
 
 
 
