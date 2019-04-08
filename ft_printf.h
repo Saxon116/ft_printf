@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 15:52:58 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 15:27:56 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/08 13:34:02 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ typedef	struct	s_flags
 	char	c;
 }		t_flags;
 
-void				ft_putchar(char c, t_flags *flags);
-void				ft_putstr(char const *s, t_flags *flags);
-void				ft_putnbr(long long n, t_flags *flags);
+void		ft_putchar(char c, t_flags *flags);
+void		ft_putstr(char const *s, t_flags *flags);
+void		ft_putnbr(long long n, t_flags *flags);
+void		ft_uputnbr(unsigned long long n, t_flags *flags, int isneg);
 int contains(char *str, char c);
 void get_flags(t_flags *flags);
 void print_num(va_list ap, t_flags *flags);
+void print_hex(va_list ap, t_flags *flags);
 void print_string(va_list ap, t_flags *flags);
 void prioritize(t_flags *flags);
 void print_double(va_list ap, t_flags *flags);

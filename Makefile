@@ -6,7 +6,7 @@
 #    By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 12:50:22 by nkellum           #+#    #+#              #
-#    Updated: 2019/04/04 16:14:17 by nkellum          ###   ########.fr        #
+#    Updated: 2019/04/08 13:31:26 by nkellum          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ print_hex.c
 
 SRC_PATH_AUX = ./libftprintf
 SRC_AUX = ft_putchar.c ft_putstr.c ft_putnbr.c ft_strchr.c ft_strsub.c \
-ft_isdigit.c ft_atoi.c ft_itoa_base.c ft_strlen.c ft_atoi_base.c
+ft_isdigit.c ft_atoi.c ft_itoa_base.c ft_strlen.c ft_atoi_base.c ft_uputnbr.c
 
 OBJ = $(SRC:.c=.o)
 OBJ_AUX = $(SRC_AUX:.c=.o)

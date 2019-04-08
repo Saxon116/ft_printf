@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:05:28 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 15:22:52 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/08 13:19:21 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,13 @@ char	*ft_itoa_base(long long value, int base, int lowercase)
 	int		i;
 	char	*nbr;
 	int		neg;
-	int hexneg;
 
 	i = 1;
-	hexneg = 0;
 	neg = 0;
 	if (value < 0)
 	{
 		if (base == 10)
 			neg = 1;
-		if(base == 16)
-			hexneg = 1;
 		value *= -1;
 	}
 	while (ft_pow(base, i) - 1 < value)

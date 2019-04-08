@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 14:26:00 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 19:21:34 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/08 19:22:10 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ void print_string_field(t_flags *flags)
 
 void print_string(va_list ap, t_flags *flags)
 {
-	int i;
-
-	i = 0;
 	if(flags->fmt_char == 's')
 		flags->str = va_arg(ap, char *);
 	if(flags->str == NULL)
@@ -67,7 +64,7 @@ void print_string(va_list ap, t_flags *flags)
 		print_string_field(flags);
 }
 
-int num_length(int num)
+int num_length(long long num)
 {
 	int i;
 
@@ -81,6 +78,25 @@ int num_length(int num)
 		i++;
 	i++;
 	return (i);
+}
+
+void print_ull_if_needed(t_flags *flags)
+{
+	if(flags->i > 9223372036854775807 ||
+	flags->i < -9223372036854775807)
+	{
+		if(flags->i < 0)
+			ft_uputnbr(flags->i, flags, 1);
+		else
+			ft_uputnbr(flags->i, flags, 0);
+	}
+	else
+	{
+		if(flags->fmt_char == 'u')
+			ft_uputnbr(flags->i, flags, 0);
+		else
+			ft_putnbr(flags->i, flags);
+	}
 }
 
 void print_precision(t_flags *flags)
@@ -101,10 +117,12 @@ void print_precision(t_flags *flags)
 		ft_putchar('0', flags);
 		i++;
 	}
-	ft_putnbr(flags->i, flags);
+	print_ull_if_needed(flags);
 }
 
-void print_field_sign(t_flags *flags)
+
+
+void print_field_sign_flag(t_flags *flags)
 {
 	if(flags->pad_zero && !flags->precision_dot && flags->is_neg)
 	{
@@ -125,7 +143,7 @@ void print_field(t_flags *flags)
 	int i;
 
 	i = 0;
-	print_field_sign(flags);
+	print_field_sign_flag(flags);
 	while(i < flags->field_length - (num_length(flags->i)
 	+ (flags->precision_val - num_length(flags->i))
 	* flags->precision_dot) - (flags->is_neg * flags->precision_dot)
@@ -146,7 +164,7 @@ void apply_conversion_flags(va_list ap, t_flags *flags)
 {
 	if(flags->l != 0)
 	{
-		flags->i = va_arg(ap, unsigned long long int);
+		flags->i = va_arg(ap, long long);
 		if(flags->fmt_char == 'u')
 			flags->i = (unsigned long long) flags->i;
 	}
@@ -220,6 +238,13 @@ void print_num(va_list ap, t_flags *flags)
 	|| flags->fmt_char == 'u')
 	{
 		apply_conversion_flags(ap, flags);
+		if(flags->i == 0 && flags->precision_dot
+		&& flags->precision_val == 0)
+		{
+			while((flags->i)++ < flags->field_length)
+				ft_putchar(' ', flags);
+			return ;
+		}
 		if(flags->i < 0)
 			flags->is_neg = 1;
 		if(!flags->left_adjustment)
@@ -227,7 +252,7 @@ void print_num(va_list ap, t_flags *flags)
 		if(flags->precision_dot)
 			print_precision(flags);
 		else
-			ft_putnbr(flags->i, flags);
+			print_ull_if_needed(flags);
 		if(flags->left_adjustment)
 			print_field(flags);
 	}

@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flag_priority.c                                    :+:      :+:    :+:   */
+/*   ft_uputnbr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 13:39:51 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/08 19:24:24 by nkellum          ###   ########.fr       */
+/*   Created: 2018/11/26 10:40:08 by nkellum           #+#    #+#             */
+/*   Updated: 2019/04/08 13:32:36 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libftprintf.h"
 
-void prioritize(t_flags *flags)
+void	ft_uputnbr(unsigned long long n, t_flags *flags, int isneg)
 {
-
-	if(flags->positive_sign && flags->space)
-		flags->space = 0;
-	if(flags->precision_dot && flags->pad_zero)
-		flags->pad_zero = 0;
-	if(flags->pad_zero && flags->left_adjustment)
-		flags->pad_zero = 0;
-	if(flags->pad_zero && flags->left_adjustment)
-		flags->pad_zero = 0;
-	if(flags->fmt_char == 'u')
-	{
-		flags->space = 0;
-		flags->positive_sign = 0;
-	}
-
+	if (isneg)
+		ft_putchar('-', flags);
+	if (n >= 10)
+		ft_putnbr(n / 10, flags);
+	ft_putchar((n % 10) + '0', flags);
 }

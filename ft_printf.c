@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 15:37:31 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/08 17:46:19 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int contains(char *str, char c)
 	return (num);
 }
 
-char check_format(char *fmt)
+char check_format(const char *fmt)
 {
 	int i;
 	int valid;
@@ -37,7 +37,7 @@ char check_format(char *fmt)
 
 	i = 0;
 	valid = 1;
-	formats = "cspdiouxXf";
+	formats = "cspdiouxXf%";
 	flags = " .#0123456789-+hl";
 	while(fmt[i] && valid)
 	{
@@ -52,7 +52,7 @@ char check_format(char *fmt)
 
 
 
-void analyse_format(va_list ap, char *fmt, char c, t_flags *flags)
+void analyse_format(va_list ap, const char *fmt, char c, t_flags *flags)
 {
 	int i;
 	char *str_formats;
@@ -69,13 +69,13 @@ void analyse_format(va_list ap, char *fmt, char c, t_flags *flags)
 	{
 		flags->is_str = 1;
 		print_string(ap, flags);
-
 	}
 	else
 	{
 		flags->is_str = 0;
 		print_num(ap, flags);
 	}
+	free(flags->fmt_str);
 }
 
 
@@ -98,8 +98,11 @@ int ft_printf(const char *fmt, ...)
 	  {
 		  fmt++;
 			c = check_format(fmt);
-			if(*fmt == '%')
+			if(c == '%')
+			{
 				ft_putchar('%', flags);
+				fmt += ft_strchr(fmt, c) - fmt;
+			}
 		  	else if(c != '\0')
 			{
 				analyse_format(ap, fmt, c, flags);
@@ -114,6 +117,6 @@ int ft_printf(const char *fmt, ...)
   }
 	chars_printed = flags->chars_printed;
   	free(flags);
-    va_end(ap);
+	va_end(ap);
 	return (chars_printed);
 }
