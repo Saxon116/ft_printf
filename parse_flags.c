@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:21:44 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 18:52:32 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/11 12:39:53 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,17 @@ int get_pad_zero(t_flags *flags)
 	return (0);
 }
 
+int return_num_in_fmt(t_flags *flags, int startindex, int endindex)
+{
+	int num;
+	char *str;
+
+	str = ft_strsub(flags->fmt_str, startindex, endindex - startindex);
+	num = ft_atoi(str);
+	free(str);
+	return (num);
+}
+
 int get_num_in_fmt(t_flags *flags, int skipindex)
 {
 	int i;
@@ -71,8 +82,7 @@ int get_num_in_fmt(t_flags *flags, int skipindex)
 		i++;
 	}
 	if(startindex != -1 && endindex != -1)
-		return(ft_atoi(ft_strsub(flags->fmt_str, startindex,
-		endindex - startindex)));
+		return(return_num_in_fmt(flags, startindex, endindex));
 	return (0);
 }
 

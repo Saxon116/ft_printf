@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "ft_printf.h"
+#include <limits.h>
 
 int main()
 {
@@ -24,8 +25,10 @@ int main()
 
 	// if(num < -9223372036854775807)
 	// 	printf("yay we can check this\n");
-	ft_printf("%5lu\n", 4294967295);
-	printf("%5lu\n", 4294967295);
+	ft_printf("[%lo, %lo]\n", 0, ULONG_MAX);
+	printf("[%lo, %lo]\n", 0, ULONG_MAX);
+
+
 
 }
 

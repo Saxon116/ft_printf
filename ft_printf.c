@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/08 17:46:19 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/11 14:38:20 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ int ft_printf(const char *fmt, ...)
 	flags->chars_printed = 0;
 
   va_start(ap, fmt);
-  while (*fmt)
+  while (*fmt && !(ft_strlen(fmt) == 1 && fmt[0] == '%'))
   {
 	  if(*fmt == '%')
 	  {
-		  fmt++;
+		  	fmt++;
 			c = check_format(fmt);
 			if(c == '%')
 			{
@@ -109,7 +109,16 @@ int ft_printf(const char *fmt, ...)
 				fmt += ft_strchr(fmt, c) - fmt;
 			}
 			else
-				ft_putchar(*fmt, flags);
+			{
+				if(*fmt == ' ')
+				{
+					while(*(fmt + 1) == ' ')
+						fmt++;
+				}
+				else
+					ft_putchar(*fmt, flags);
+			}
+
 	  }
 	  else
 	  	ft_putchar(*fmt, flags);

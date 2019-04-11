@@ -2,4 +2,8 @@
 double precision
 long double!
 double min max
-double flags
+double flags (field width etc)
+
+master ft_atoi_base and ft_itoa_base
+
+basic tests : 17

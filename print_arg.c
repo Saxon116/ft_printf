@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 14:26:00 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/08 19:22:10 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/11 16:23:41 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,13 @@ void print_ull_if_needed(t_flags *flags)
 	}
 }
 
-void print_precision(t_flags *flags)
+void print_precision(t_flags *flags, int str_length)
 {
 	int i;
+	int length;
 
+	length = str_length ? str_length : num_length(flags->i);
 	i = 0;
-
 	if(flags->is_neg)
 	{
 		ft_putchar('-', flags);
@@ -112,7 +113,7 @@ void print_precision(t_flags *flags)
 	}
 	else if(flags->positive_sign)
 		ft_putchar('+', flags);
-	while(i < flags->precision_val - num_length(flags->i))
+	while(i < flags->precision_val - length)
 	{
 		ft_putchar('0', flags);
 		i++;
@@ -138,14 +139,16 @@ void print_field_sign_flag(t_flags *flags)
 		ft_putchar(' ', flags);
 }
 
-void print_field(t_flags *flags)
+void print_field(t_flags *flags, int str_length)
 {
 	int i;
+	int length;
 
 	i = 0;
+	length = str_length ? str_length : num_length(flags->i);
 	print_field_sign_flag(flags);
-	while(i < flags->field_length - (num_length(flags->i)
-	+ (flags->precision_val - num_length(flags->i))
+	while(i < flags->field_length - length
+	+ (flags->precision_val - length
 	* flags->precision_dot) - (flags->is_neg * flags->precision_dot)
 	- (flags->positive_sign * !flags->is_neg))
 	{
@@ -215,19 +218,18 @@ void print_octal(va_list ap, t_flags *flags)
 		flags->i = (unsigned short int) flags->i;
 	if(flags->h >= 2)
 		flags->i = (unsigned char) flags->i;
-	flags->i = ft_atoi_base(ft_itoa_base(flags->i, 8, 0), 10);
 	if(flags->hash && !flags->precision_dot)
 		flags->field_length--;
 	if(!flags->left_adjustment)
-		print_field(flags);
+		print_field(flags, ft_strlen(ft_utoa_base(flags->i, 8, 0)));
 	if(flags->hash && !flags->precision_dot)
 		ft_putchar('0', flags);
 	if(flags->precision_dot)
-		print_precision(flags);
+		print_precision(flags, 0);
 	else
-		ft_putnbr(flags->i, flags);
+		ft_putstr(ft_utoa_base(flags->i, 8, 0), flags);
 	if(flags->left_adjustment)
-		print_field(flags);
+		print_field(flags, 0);
 }
 
 
@@ -248,13 +250,13 @@ void print_num(va_list ap, t_flags *flags)
 		if(flags->i < 0)
 			flags->is_neg = 1;
 		if(!flags->left_adjustment)
-			print_field(flags);
+			print_field(flags, 0);
 		if(flags->precision_dot)
-			print_precision(flags);
+			print_precision(flags, 0);
 		else
 			print_ull_if_needed(flags);
 		if(flags->left_adjustment)
-			print_field(flags);
+			print_field(flags, 0);
 	}
 	if(flags->fmt_char == 'o')
 		print_octal(ap, flags);
