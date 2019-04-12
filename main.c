@@ -4,7 +4,6 @@
 
 int main()
 {
-	int fieldwidth = 10;
 	double flt = 15600000.4300465510;
 	long long num = -92233724775808;
 	//void *ptr = &flt;
@@ -23,14 +22,13 @@ int main()
 	// printf("ft_printf returned %d\n", ft_printf("ft_printf %llx\n", num));
 
 
-	// if(num < -9223372036854775807)
-	// 	printf("yay we can check this\n");
-	ft_printf("[%lo, %lo]\n", 0, ULONG_MAX);
-	printf("[%lo, %lo]\n", 0, ULONG_MAX);
+	ft_printf("@moulitest: %.10d\n", -42);
+	printf("@moulitest: %.10d\n", -42);
 
 
 
 }
 
 // 18446744073709551615
+// 1444565444646
 // 9223372036854775808

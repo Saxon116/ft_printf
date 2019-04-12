@@ -6,13 +6,13 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 17:45:50 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 15:32:41 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/11 17:30:56 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void ft_putdbl(t_flags *flags, int *array, int num)
+void ft_putdbl(t_flags *flags, int *array, long long num)
 {
 	int i;
 
@@ -27,7 +27,7 @@ void ft_putdbl(t_flags *flags, int *array, int num)
 	}
 }
 
-void apply_precision(int apply, t_flags *flags, int *array, int num)
+void apply_precision(int apply, t_flags *flags, int *array, long long num)
 {
 	int i;
 
@@ -54,22 +54,26 @@ void apply_precision(int apply, t_flags *flags, int *array, int num)
 
 void print_double(va_list ap, t_flags *flags)
 {
- 	int num;
+ 	long long num;
 	int i;
 	int array[flags->precision_val];
 	double d;
 
 	d = va_arg(ap, double);
 	i = 0;
-	num = (int) d;
-	if(flags->precision_val == 0)
-	{
-		ft_putnbr(num, flags);
-		return ;
-	}
+	num = (long long) d;
 	double m = d - num;
 	if(m < 0)
 		m = -m;
+	if(flags->precision_dot && flags->precision_val == 0)
+	{
+		m -= (int) m;
+		m *= 10;
+		if((int) m >= 5)
+			num++;
+		ft_putnbr(num, flags);
+		return ;
+	}
 	while(i < flags->precision_val)
 	{
 		m *= 10;

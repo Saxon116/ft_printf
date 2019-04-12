@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 16:13:38 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 18:43:50 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/11 16:46:44 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void print_hex(va_list ap, t_flags *flags)
 
 	if(!check_hex_format(ap, flags))
 		return ;
-	length = ft_strlen(ft_itoa_base(flags->i, 16, 0));
+	length = ft_strlen(ft_utoa_base(flags->i, 16, 0));
 	if(flags->fmt_char == 'p')
 		length += 2;
 	if(flags->pad_zero)
@@ -102,9 +102,9 @@ void print_hex(va_list ap, t_flags *flags)
 		print_zero_x(flags);
 	print_precision_hex(flags, length);
 	if(flags->fmt_char == 'x' || flags->fmt_char == 'p')
-		ft_putstr(ft_itoa_base(flags->i, 16, 1), flags);
+		ft_putstr(ft_utoa_base(flags->i, 16, 1), flags);
 	else
-		ft_putstr(ft_itoa_base(flags->i, 16, 0), flags);
+		ft_putstr(ft_utoa_base(flags->i, 16, 0), flags);
 	if(flags->left_adjustment)
 		print_field_hex(flags, length);
 }
