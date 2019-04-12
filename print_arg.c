@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 14:26:00 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/12 12:49:29 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/12 15:40:57 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,16 @@ void print_string_field(t_flags *flags)
 	int i;
 
 	i = 0;
-	while(i < flags->field_length - (1 * (flags->fmt_char == 'c'))
-	- (ft_strlen(flags->str) * (flags->precision_val == 0))
-	- (flags->precision_val * (ft_strlen(flags->str) != 0)))
+	while(i < flags->field_length - (flags->fmt_char == 'c')
+	- (ft_strlen(flags->str) * (flags->precision_val >= ft_strlen(flags->str)
+	|| (!flags->precision_val && !flags->precision_dot)))
+	- (flags->precision_val * (flags->precision_val < ft_strlen(flags->str))
+	* (ft_strlen(flags->str) != 0)))
 	{
-		ft_putchar(' ', flags);
+		if(flags->pad_zero)
+			ft_putchar('0', flags);
+		else
+			ft_putchar(' ', flags);
 		i++;
 	}
 }
@@ -56,7 +61,10 @@ void print_string(va_list ap, t_flags *flags)
 		if(flags->precision_val > 0)
 			print_precision_str(flags);
 		else
-			ft_putstr(flags->str, flags);
+		{
+			if(!flags->precision_dot)
+				ft_putstr(flags->str, flags);
+		}
 	}
 	if(flags->fmt_char == 'c')
 		ft_putchar(flags->c, flags);
@@ -137,6 +145,11 @@ void print_field_sign_flag(t_flags *flags)
 	if(flags->space && flags->field_length <= (num_length(flags->i))
 	&& flags->i > 0)
 		ft_putchar(' ', flags);
+	if(flags->i == 0 && flags->space)
+	{
+		ft_putchar(' ', flags);
+		flags->field_length--;
+	}
 }
 
 void print_field(t_flags *flags, int str_length)
@@ -148,8 +161,9 @@ void print_field(t_flags *flags, int str_length)
 	length = str_length ? str_length : num_length(flags->i);
 	print_field_sign_flag(flags);
 	while(i < flags->field_length - length
-	- (flags->precision_val - length)
-	* flags->precision_dot - (flags->is_neg * flags->precision_dot)
+	- (flags->precision_val - length) * (flags->precision_val - length > 0)
+	* flags->precision_dot - (flags->is_neg * flags->precision_dot
+	* (flags->precision_val - length >= 0))
 	- (flags->positive_sign * !flags->is_neg))
 	{
 		if(flags->pad_zero && !flags->precision_dot)

@@ -22,8 +22,8 @@ int main()
 	// printf("ft_printf returned %d\n", ft_printf("ft_printf %llx\n", num));
 
 
-	ft_printf("@moulitest: %.10d\n", -42);
-	printf("@moulitest: %.10d\n", -42);
+	ft_printf("%.5p\n", 0);
+	printf("%.5p\n", 0);
 
 
 
