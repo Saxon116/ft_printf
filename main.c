@@ -22,9 +22,8 @@ int main()
 	// printf("ft_printf returned %d\n", ft_printf("ft_printf %llx\n", num));
 
 
-	ft_printf("%.5p\n", 0);
-	printf("%.5p\n", 0);
-
+	ft_printf("{%.100f}\n", -0.0);
+	printf("{%.100f}\n", -0.0);
 
 
 }

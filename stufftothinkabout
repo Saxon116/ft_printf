@@ -3,6 +3,7 @@ double precision
 long double!
 double min max
 double flags (field width etc)
+figure out zeros in doubles (neg zero and pos zero)
 
 master ft_atoi_base and ft_itoa_base
 

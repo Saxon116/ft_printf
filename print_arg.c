@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 14:26:00 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/12 15:40:57 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/15 17:42:05 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void print_precision_str(t_flags *flags)
 	int i;
 
 	i = 0;
-	while(i < flags->precision_val && flags->str[i])
+	while(i < flags->precision_val && flags->str && flags->str[i])
 	{
 		ft_putchar(flags->str[i], flags);
 		i++;
@@ -48,10 +48,7 @@ void print_string(va_list ap, t_flags *flags)
 	if(flags->fmt_char == 's')
 		flags->str = va_arg(ap, char *);
 	if(flags->str == NULL)
-	{
-		ft_putstr("(null)", flags);
-		return ;
-	}
+		flags->str = "(null)";
 	if(flags->fmt_char == 'c')
 		flags->c = va_arg(ap, int);
 	if(!flags->left_adjustment)
@@ -173,7 +170,7 @@ void print_field(t_flags *flags, int str_length)
 		i++;
 	}
 	if(flags->positive_sign && !flags->precision_dot && !flags->is_neg
-	&& !flags->pad_zero)
+	&& !flags->pad_zero && flags->fmt_char != 'o')
 		ft_putchar('+', flags);
 }
 
