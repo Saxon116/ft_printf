@@ -7,4 +7,7 @@ figure out zeros in doubles (neg zero and pos zero)
 
 master ft_atoi_base and ft_itoa_base
 
-basic tests : 17
+test long max with ld etc to see if
+we shouldn't cast directly to ll
+
+basic tests : 16

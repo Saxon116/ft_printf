@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/15 16:38:52 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/17 15:32:41 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char check_format(const char *fmt)
 	i = 0;
 	valid = 1;
 	formats = "cspdiouxXf%";
-	flags = " .#0123456789-+hl";
+	flags = " .#0123456789-+hlL";
 	while(fmt[i] && valid)
 	{
 		if(contains(formats, fmt[i]))
@@ -62,6 +62,7 @@ void analyse_format(va_list ap, const char *fmt, char c, t_flags *flags)
 	flags->fmt_char = c;
 	flags->h = contains(flags->fmt_str, 'h');
 	flags->l = contains(flags->fmt_str, 'l');
+	flags->L = contains(flags->fmt_str, 'L');	
 	get_flags(flags);
 	i = 0;
 	str_formats = "cs";

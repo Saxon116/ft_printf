@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 16:13:38 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/15 17:32:35 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/17 15:46:46 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void print_precision_hex(t_flags *flags, int length)
 	int i;
 
 	i = 0;
-	//printf("length in prnt prec is %d\n", length);
 	while(i < flags->precision_val - length * (flags->i > 0))
 	{
 		ft_putchar('0', flags);
@@ -93,7 +92,9 @@ void print_hex(va_list ap, t_flags *flags)
 
 	if(!check_hex_format(ap, flags))
 		return ;
-	length = ft_strlen(ft_utoa_base(flags->i, 16, 0));
+	flags->str = ft_utoa_base(flags->i, 16, 0);
+	length = ft_strlen(flags->str);
+	free(flags->str);
 	if(flags->fmt_char == 'p' && flags->field_length > flags->precision_val)
 		length += 2;
 	if(flags->pad_zero)
@@ -105,9 +106,11 @@ void print_hex(va_list ap, t_flags *flags)
 	print_precision_hex(flags, length);
 	if(flags->fmt_char == 'x' || (flags->i > 0 && flags->fmt_char == 'p')
 || (flags->fmt_char == 'p' && !flags->precision_dot))
-		ft_putstr(ft_utoa_base(flags->i, 16, 1), flags);
+		flags->str = ft_utoa_base(flags->i, 16, 1);
 	else if(!(flags->i == 0 && flags->fmt_char == 'p'))
-		ft_putstr(ft_utoa_base(flags->i, 16, 0), flags);
+		flags->str = ft_utoa_base(flags->i, 16, 0);
+	ft_putstr(flags->str, flags);
+	free(flags->str);
 	if(flags->left_adjustment)
 		print_field_hex(flags, length);
 }
