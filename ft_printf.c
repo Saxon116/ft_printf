@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/17 15:32:41 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/17 19:15:45 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,18 @@ int contains(char *str, char c)
 char check_format(const char *fmt)
 {
 	int i;
-	int valid;
 	char *formats;
 	char *flags;
 
 	i = 0;
-	valid = 1;
 	formats = "cspdiouxXf%";
 	flags = " .#0123456789-+hlL";
-	while(fmt[i] && valid)
+	while(fmt[i])
 	{
 		if(contains(formats, fmt[i]))
 			return (fmt[i]);
 		if(!contains(flags, fmt[i]))
-			return ('\0');
+			return ('$');
 		i++;
 	}
 	return ('\0');
@@ -57,12 +55,11 @@ void analyse_format(va_list ap, const char *fmt, char c, t_flags *flags)
 	int i;
 	char *str_formats;
 
-	init_flags(flags);
 	flags->fmt_str = ft_strsub(fmt, 0, ft_strchr(fmt, c) - fmt);
 	flags->fmt_char = c;
 	flags->h = contains(flags->fmt_str, 'h');
 	flags->l = contains(flags->fmt_str, 'l');
-	flags->L = contains(flags->fmt_str, 'L');	
+	flags->L = contains(flags->fmt_str, 'L');
 	get_flags(flags);
 	i = 0;
 	str_formats = "cs";
@@ -103,8 +100,7 @@ void get_dpercent_field(char *str, t_flags *flags)
 	field_length = 0;
 	i = 0;
 	pad_zero = 0;
-	while(str[i] != '%' || (str[i] <= 'a' && str[i] >= 'z'
-&& str[i] <= 'A' && str[i] >= 'Z'))
+	while(str[i] != '%')
 	{
 		if(str[i] == '0')
 			pad_zero = 1;
@@ -118,6 +114,56 @@ void get_dpercent_field(char *str, t_flags *flags)
 	print_dpercent_field(pad_zero, field_length, flags);
 }
 
+void print_invalid_fmt_field(t_flags *flags)
+{
+	int i;
+
+	i = 0;
+	if(!contains("hlLjtzq", flags->c) ||
+	contains("hlLjtzq", flags->c) && !flags->left_adjustment)
+	{
+		if(!contains("hlLjtzq", flags->c) && flags->left_adjustment)
+			ft_putchar(flags->c, flags);
+			while(i < flags->field_length - 1)
+			{
+				if(flags->pad_zero)
+					ft_putchar('0', flags);
+				else
+					ft_putchar(' ', flags);
+				i++;
+			}
+			if(!contains("hlLjtzq", flags->c) && !flags->left_adjustment)
+				ft_putchar(flags->c, flags);
+	}
+}
+
+int get_invalid_fmt_field(char *str, t_flags *flags)
+{
+	int i;
+
+	i = 0;
+	while(contains("-+#*01234564789. ", str[i]))
+	{
+		if(str[i] == '0')
+			flags->pad_zero = 1;
+		if(str[i] == '-')
+			flags->left_adjustment = 1;
+		if(str[i] == '.')
+			flags->precision_dot = 1;
+		if(str[i] >= '1' && str[i] <= '9' && !flags->precision_dot)
+		{
+			flags->field_length = ft_atoi(str + i);
+			i += num_length(flags->field_length) - 1;
+		}
+		i++;
+	}
+	while(contains("jtzq", str[i]))
+		i++;
+	flags->c = str[i];
+	print_invalid_fmt_field(flags);
+	return (i);
+}
+
 int ft_printf(const char *fmt, ...)
 {
 	va_list ap;
@@ -128,7 +174,7 @@ int ft_printf(const char *fmt, ...)
 
 	if((flags = malloc(sizeof(t_flags))) == NULL)
 		return 0;
-	flags->chars_printed = 0;
+	init_flags(flags);
 
   va_start(ap, fmt);
   while (*fmt && !(ft_strlen(fmt) == 1 && fmt[0] == '%'))
@@ -142,6 +188,10 @@ int ft_printf(const char *fmt, ...)
 				get_dpercent_field(fmt, flags);
 				ft_putchar('%', flags);
 				fmt += ft_strchr(fmt, c) - fmt;
+			}
+			else if(c == '$')
+			{
+				fmt += get_invalid_fmt_field(fmt, flags);
 			}
 		  	else if(c != '\0')
 			{

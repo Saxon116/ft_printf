@@ -11,3 +11,21 @@ test long max with ld etc to see if
 we shouldn't cast directly to ll
 
 basic tests : 16
+
+
+weird invalid format:
+
+if is a valid flag that is alpha, printfield and not flag
+if known flag but negative, don't do anything
+
+if not known alpha format or flag (eg Z, R, k, m..)
+print field based off of left or right adjustment
+
+
+looks at all chars after %. if the char is not a valid format or flag,
+skip fmt to that point. if there is a field_length, print it (with zero
+padding)
+
+either char found is valid, print it if '-' not present
+
+while char is either a digit or valid non alpha flag (eg - + * #)
