@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/17 19:15:45 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/18 15:55:54 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ char check_format(const char *fmt)
 			return ('$');
 		i++;
 	}
+	if(contains("hlLjtzq", fmt[i - 1]))
+	{
+		//printf("sent invalid char to function\n");
+		return ('$');
+	}
 	return ('\0');
 }
 
@@ -76,42 +81,48 @@ void analyse_format(va_list ap, const char *fmt, char c, t_flags *flags)
 	free(flags->fmt_str);
 }
 
-void print_dpercent_field(int pad_zero, int field_length, t_flags *flags)
+void print_dpercent_field(t_flags *flags)
 {
 	int i;
 
 	i = 0;
-	while(i < field_length - 1)
+	if(flags->left_adjustment)
+		ft_putchar('%', flags);
+	while(i < flags->field_length - 1)
 	{
-		if(pad_zero)
+		if(flags->pad_zero)
 			ft_putchar('0', flags);
 		else
 			ft_putchar(' ', flags);
 		i++;
 	}
+	if(!flags->left_adjustment)
+		ft_putchar('%', flags);
 }
 
 void get_dpercent_field(char *str, t_flags *flags)
 {
-	int pad_zero;
 	int i;
-	int field_length;
 
-	field_length = 0;
 	i = 0;
-	pad_zero = 0;
 	while(str[i] != '%')
 	{
 		if(str[i] == '0')
-			pad_zero = 1;
-		if(str[i] >= '1' && str[i] <= '9')
+			flags->pad_zero = 1;
+		if(str[i] == '.')
+			flags->precision_dot = 1;
+		if(str[i] == '-')
+			flags->left_adjustment = 1;
+		if(str[i] >= '1' && str[i] <= '9' && !flags->precision_dot)
 		{
-			field_length = ft_atoi(str + i);
+			flags->field_length = ft_atoi(str + i);
 			break;
 		}
 		i++;
 	}
-	print_dpercent_field(pad_zero, field_length, flags);
+	if(flags->left_adjustment && flags->pad_zero)
+		flags->pad_zero = 0;
+	print_dpercent_field(flags);
 }
 
 void print_invalid_fmt_field(t_flags *flags)
@@ -120,7 +131,7 @@ void print_invalid_fmt_field(t_flags *flags)
 
 	i = 0;
 	if(!contains("hlLjtzq", flags->c) ||
-	contains("hlLjtzq", flags->c) && !flags->left_adjustment)
+	(contains("hlLjtzq", flags->c) && !flags->left_adjustment))
 	{
 		if(!contains("hlLjtzq", flags->c) && flags->left_adjustment)
 			ft_putchar(flags->c, flags);
@@ -157,7 +168,7 @@ int get_invalid_fmt_field(char *str, t_flags *flags)
 		}
 		i++;
 	}
-	while(contains("jtzq", str[i]))
+	while(contains("hlLjtzq", str[i]))
 		i++;
 	flags->c = str[i];
 	print_invalid_fmt_field(flags);
@@ -186,7 +197,6 @@ int ft_printf(const char *fmt, ...)
 			if(c == '%')
 			{
 				get_dpercent_field(fmt, flags);
-				ft_putchar('%', flags);
 				fmt += ft_strchr(fmt, c) - fmt;
 			}
 			else if(c == '$')

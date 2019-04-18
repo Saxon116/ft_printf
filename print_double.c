@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 17:45:50 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/17 15:30:30 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/18 16:31:18 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void print_double_field(int num_length, t_flags *flags)
 
 	i = 0;
 	while(i < flags->field_length - num_length
-		- flags->precision_dot - flags->precision_val
+		- 1 - flags->precision_val
 		- flags->positive_sign - flags->is_neg)
 	{
 		if(flags->pad_zero)

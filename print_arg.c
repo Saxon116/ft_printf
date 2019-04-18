@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 14:26:00 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/17 15:49:01 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/18 16:02:15 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void print_field_sign_flag(t_flags *flags)
 	&& flags->pad_zero)
 		ft_putchar('+', flags);
 	if(flags->space && flags->field_length <= (num_length(flags->i))
-	&& flags->i > 0)
+	&& !flags->is_neg)
 		ft_putchar(' ', flags);
 	if(flags->i == 0 && flags->space)
 	{
@@ -224,14 +224,19 @@ void print_octal(va_list ap, t_flags *flags)
 {
 	if(!check_octal_format(flags))
 		return ;
-	flags->i = va_arg(ap, unsigned long long);
+	if(flags->l == 1)
+		flags->i = va_arg(ap, unsigned long);
+	else if(flags->l >= 2)
+		flags->i = va_arg(ap, unsigned long long);
+	else
+		flags->i = va_arg(ap, unsigned int);
 	if(flags->h == 1)
 		flags->i = (unsigned short int) flags->i;
 	if(flags->h >= 2)
 		flags->i = (unsigned char) flags->i;
 	if(flags->hash && !flags->precision_dot)
 		flags->field_length--;
-	flags->str = ft_utoa_base(flags->i, 8, 0);
+	flags->str = ft_itoa_base(flags->i, 8, 0);
 	if(!flags->left_adjustment)
 		print_field(flags, ft_strlen(flags->str));
 	if(flags->hash && !flags->precision_dot && flags->i)

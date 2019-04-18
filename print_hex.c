@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 16:13:38 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/17 15:46:46 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/18 12:53:58 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void print_hex(va_list ap, t_flags *flags)
 	if(!check_hex_format(ap, flags))
 		return ;
 	flags->str = ft_utoa_base(flags->i, 16, 0);
-	length = ft_strlen(flags->str);
 	free(flags->str);
+	length = ft_strlen(flags->str);
 	if(flags->fmt_char == 'p' && flags->field_length > flags->precision_val)
 		length += 2;
 	if(flags->pad_zero)
@@ -109,8 +109,15 @@ void print_hex(va_list ap, t_flags *flags)
 		flags->str = ft_utoa_base(flags->i, 16, 1);
 	else if(!(flags->i == 0 && flags->fmt_char == 'p'))
 		flags->str = ft_utoa_base(flags->i, 16, 0);
-	ft_putstr(flags->str, flags);
-	free(flags->str);
+	if(!(flags->i == 0 && flags->fmt_char == 'p'
+	&& flags->precision_dot))
+	{
+		ft_putstr(flags->str, flags);
+		free(flags->str);
+	}
+	else if((flags->i == 0 && flags->fmt_char == 'p'
+	 && flags->field_length > 0))
+	 	ft_putchar('0', flags);
 	if(flags->left_adjustment)
 		print_field_hex(flags, length);
 }

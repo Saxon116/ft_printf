@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:05:28 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/11 16:19:09 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/18 12:38:38 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char	*ft_itoa_base(long long value, int base, int lowercase)
 			 (lowercase ? 'a' - 10 : 'A' - 10) : '0');
 		value = value / base;
 	}
-
 	if (neg)
 		nbr[0] = '-';
 	return (nbr);

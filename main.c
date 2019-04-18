@@ -5,8 +5,6 @@
 
 int main()
 {
-	 double flt = 546186513.654984651;
-
 
 	//
 	// ft_printf("{%10h}\n", 0);
@@ -15,8 +13,9 @@ int main()
 	// ft_printf("\n{%-15tm}\n", 123);
 	// printf("{%-15tm}\n", 123);
 	//
-	ft_printf("{%10h}\n");
-	printf("{%10h}\n");
+	double george = 0.1;
+	ft_printf("[%08.12f]\n", george);
+	printf("[%08.12f]\n", george);
 	// ft_printf("% 6d\n", -42);
 	// printf("% 6d", -42);
 
