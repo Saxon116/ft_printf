@@ -6,13 +6,13 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:05:28 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/18 12:38:38 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/25 14:43:21 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-long long ft_pow(long long nb, int pow)
+long long	ft_pow(long long nb, int pow)
 {
 	if (pow == 0)
 		return (1);
@@ -20,13 +20,29 @@ long long ft_pow(long long nb, int pow)
 		return (nb * ft_pow(nb, pow - 1));
 }
 
-char	*ft_itoa_base(long long value, int base, int lowercase)
+int			get_size(long long value, int base)
+{
+	int i;
+
+	i = 1;
+	while (ft_pow(base, i) - 1 < value)
+	{
+		if (ft_pow(base, i) - 1 > 0 && ft_pow(base, i + 1) - 1 == -1)
+		{
+			i++;
+			return (i);
+		}
+		i++;
+	}
+	return (i);
+}
+
+char		*ft_itoa_base(long long value, int base, int lowercase)
 {
 	int		i;
 	char	*nbr;
 	int		neg;
 
-	i = 1;
 	neg = 0;
 	if (value < 0)
 	{
@@ -34,21 +50,14 @@ char	*ft_itoa_base(long long value, int base, int lowercase)
 			neg = 1;
 		value *= -1;
 	}
-	while (ft_pow(base, i) - 1 < value)
-	{
-		if(ft_pow(base, i) - 1 > 0 && ft_pow(base, i + 1) - 1 == -1)
-		{
-			i++;
-			break;
-		}
-		i++;
-	}
+	i = get_size(value, base);
 	nbr = (char*)malloc(sizeof(nbr) * i);
 	nbr[i + neg] = '\0';
 	while (i-- > 0)
 	{
-		nbr[i + neg] = (value % base) + (value % base > 9 ?
-			 (lowercase ? 'a' - 10 : 'A' - 10) : '0');
+		nbr[i + neg] = (value % base) + (value % base > 9 ? 'A' - 10 : '0');
+		if (nbr[i + neg] >= 'A' && nbr[i + neg] <= 'F' && lowercase)
+			nbr[i + neg] = nbr[i + neg] + 32;
 		value = value / base;
 	}
 	if (neg)

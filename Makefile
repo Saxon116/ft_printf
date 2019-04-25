@@ -6,18 +6,19 @@
 #    By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 12:50:22 by nkellum           #+#    #+#              #
-#    Updated: 2019/04/11 16:21:28 by nkellum          ###   ########.fr        #
+#    Updated: 2019/04/25 13:44:42 by nkellum          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-SRC = flag_priority.c parse_flags.c print_arg.c print_double.c ft_printf.c \
-print_hex.c
+SRC = flag_init_priority.c parse_flags.c print_arg.c print_double.c \
+ft_printf.c print_hex.c undefined.c print_string.c print_octal.c \
+print_num.c
 
 SRC_PATH_AUX = ./libftprintf
 SRC_AUX = ft_putchar.c ft_putstr.c ft_putnbr.c ft_strchr.c ft_strsub.c \
 ft_isdigit.c ft_atoi.c ft_itoa_base.c ft_strlen.c ft_atoi_base.c \
-ft_uputnbr.c ft_utoa_base.c
+ft_uputnbr.c ft_utoa_base.c contains.c num_length.c
 
 
 OBJ = $(SRC:.c=.o)

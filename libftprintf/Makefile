@@ -6,13 +6,14 @@
 #    By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 12:50:22 by nkellum           #+#    #+#              #
-#    Updated: 2019/04/08 13:30:33 by nkellum          ###   ########.fr        #
+#    Updated: 2019/04/25 13:32:29 by nkellum          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 SRC = ft_putchar.c ft_putstr.c ft_putnbr.c ft_strchr.c ft_strsub.c \
-ft_isdigit.c ft_atoi.c ft_itoa_base.c ft_strlen.c ft_atoi_base.c ft_uputnbr.c
+ft_isdigit.c ft_atoi.c ft_itoa_base.c ft_strlen.c ft_atoi_base.c ft_uputnbr.c \
+contains.c num_length.c
 
 
 

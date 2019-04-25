@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   contains.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/25 15:26:07 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/25 15:26:08 by nkellum          ###   ########.fr       */
+/*   Created: 2019/04/25 13:23:53 by nkellum           #+#    #+#             */
+/*   Updated: 2019/04/25 14:33:01 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "ft_printf.h"
-#include <limits.h>
-#include <float.h>
+#include "libftprintf.h"
 
-int	main(void)
+int	contains(char *str, char c)
 {
-	ft_printf("%X\n", -12312398123);
-	printf("%X\n", -12312398123);
+	int i;
+	int num;
+
+	i = 0;
+	num = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			num++;
+		i++;
+	}
+	return (num);
 }

@@ -6,18 +6,20 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 21:59:32 by nkellum           #+#    #+#             */
-/*   Updated: 2019/03/21 22:11:14 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/25 14:33:51 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_strlen(char *str)
+#include "libftprintf.h"
+
+int	ft_strlen(const char *str)
 {
 	int i;
 
 	i = 0;
-	if(!str)
+	if (!str)
 		return (0);
-	while(str[i])
+	while (str[i])
 		i++;
 	return (i);
 }

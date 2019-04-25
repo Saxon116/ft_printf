@@ -4,3 +4,8 @@ long double!
 double min max
 double flags (field width etc)
 figure out zeros in doubles (neg zero and pos zero)
+
+
+basic tests 15
+undefined 14
+moulitest 29

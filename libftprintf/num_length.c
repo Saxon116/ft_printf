@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   num_length.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/25 15:26:07 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/25 15:26:08 by nkellum          ###   ########.fr       */
+/*   Created: 2019/04/25 13:31:49 by nkellum           #+#    #+#             */
+/*   Updated: 2019/04/25 14:48:41 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "ft_printf.h"
-#include <limits.h>
-#include <float.h>
+#include "libftprintf.h"
 
-int	main(void)
+int	num_length(long long num)
 {
-	ft_printf("%X\n", -12312398123);
-	printf("%X\n", -12312398123);
+	int i;
+
+	i = 0;
+	if (num < 0)
+	{
+		num = -num;
+		i++;
+	}
+	while (num /= 10)
+		i++;
+	i++;
+	return (i);
 }

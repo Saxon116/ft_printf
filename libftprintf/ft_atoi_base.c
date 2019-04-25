@@ -6,15 +6,15 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 12:52:32 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 15:34:10 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/25 14:46:02 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static long long convert_and_check_nb(char c, int base)
+static long long	convert_and_check_nb(char c, int base)
 {
-	long long 	result;
+	long long	result;
 
 	if (c >= '0' && c <= '9')
 		result = c - 48;
@@ -30,9 +30,9 @@ static long long convert_and_check_nb(char c, int base)
 		return (-1);
 }
 
-static long long length_number(char *str, int base)
+static long long	length_number(char *str, int base)
 {
-	long long 	length;
+	long long	length;
 
 	length = 0;
 	while (str[length])
@@ -44,7 +44,7 @@ static long long length_number(char *str, int base)
 	return (length);
 }
 
-long long	ft_atoi_base(char *nb, int base)
+long long			ft_atoi_base(char *nb, int base)
 {
 	long long	result;
 	long long	length;

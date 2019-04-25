@@ -6,17 +6,17 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 14:59:06 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 15:13:47 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/25 14:33:31 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-long long ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
-	long long num;
-	int isneg;
-	int i;
+	long long	num;
+	int			isneg;
+	int			i;
 
 	i = 0;
 	isneg = 0;
