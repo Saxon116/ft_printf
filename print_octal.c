@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 13:37:48 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/25 15:20:30 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/25 18:39:28 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,26 @@ void	print_ull_if_needed(t_flags *flags)
 		if (flags->fmt_char == 'u')
 			ft_uputnbr(flags->i, flags, 0);
 		else
+		{
+			if (flags->positive_sign && !flags->is_neg
+			&& flags->left_adjustment && !flags->precision_dot)
+				ft_putchar('+', flags);
 			ft_putnbr(flags->i, flags);
+		}
 	}
 }
 
-int		check_octal_format(t_flags *flags)
+int		check_octal_format(va_list ap, t_flags *flags)
 {
 	int i;
 
 	i = 0;
+	if (flags->l == 1)
+		flags->i = va_arg(ap, unsigned long);
+	else if (flags->l >= 2)
+		flags->i = va_arg(ap, unsigned long long);
+	else
+		flags->i = va_arg(ap, unsigned int);
 	if (flags->precision_dot && !flags->precision_val
 		&& flags->i == 0 && !flags->hash)
 	{
@@ -46,26 +57,23 @@ int		check_octal_format(t_flags *flags)
 		}
 		return (0);
 	}
+	if (flags->i == 0 && flags->precision_dot && !flags->precision_val
+	&& !flags->hash)
+		return (0);
 	return (1);
 }
 
 void	print_octal(va_list ap, t_flags *flags)
 {
-	if (!check_octal_format(flags))
+	if (!check_octal_format(ap, flags))
 		return ;
-	if (flags->l == 1)
-		flags->i = va_arg(ap, unsigned long);
-	else if (flags->l >= 2)
-		flags->i = va_arg(ap, unsigned long long);
-	else
-		flags->i = va_arg(ap, unsigned int);
 	if (flags->h == 1)
 		flags->i = (unsigned short int)flags->i;
 	if (flags->h >= 2)
 		flags->i = (unsigned char)flags->i;
 	if (flags->hash && !flags->precision_dot)
 		flags->field_length--;
-	flags->str = ft_itoa_base(flags->i, 8, 0);
+	flags->str = ft_utoa_base(flags->i, 8, 0);
 	if (!flags->left_adjustment)
 		print_field(flags, ft_strlen(flags->str));
 	if (flags->hash && !flags->precision_dot && flags->i)
