@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:39:51 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/25 15:24:42 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/26 17:38:18 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	init_flags(t_flags *flags)
 	flags->precision_dot = 0;
 	flags->precision_val = 0;
 	flags->field_length = 0;
-	flags->chars_printed = 0;
 	flags->h = 0;
 	flags->l = 0;
 	flags->upper_l = 0;

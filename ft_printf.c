@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/26 17:04:22 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/04/26 17:38:27 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ int		ft_printf(const char *fmt, ...)
 	t_flags	*flags;
 
 	init_flag_struct(&flags);
+	flags->chars_printed = 0;
 	va_start(ap, fmt);
 	while (*fmt && !(ft_strlen(fmt) == 1 && fmt[0] == '%'))
 	{
 		if (*fmt == '%')
 		{
-
 			fmt++;
 			c = check_format(fmt);
 			fmt += parse_format(ap, c, fmt, flags);
