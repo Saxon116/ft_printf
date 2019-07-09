@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 13:35:14 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/25 15:21:28 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:00:17 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_precision_str(t_flags *flags)
 	i = 0;
 	while (i < flags->precision_val && flags->str && flags->str[i])
 	{
-		ft_putchar(flags->str[i], flags);
+		ft_putchar_p(flags->str[i], flags);
 		i++;
 	}
 }
@@ -30,15 +30,15 @@ void	print_string_field(t_flags *flags)
 
 	i = 0;
 	while (i < flags->field_length - (flags->fmt_char == 'c')
-	- (ft_strlen(flags->str) * (flags->precision_val >= ft_strlen(flags->str)
+	- (ft_strlen_p(flags->str) * (flags->precision_val >= ft_strlen_p(flags->str)
 	|| (!flags->precision_val && !flags->precision_dot)))
-	- (flags->precision_val * (flags->precision_val < ft_strlen(flags->str))
-	* (ft_strlen(flags->str) != 0)))
+	- (flags->precision_val * (flags->precision_val < ft_strlen_p(flags->str))
+	* (ft_strlen_p(flags->str) != 0)))
 	{
 		if (flags->pad_zero)
-			ft_putchar('0', flags);
+			ft_putchar_p('0', flags);
 		else
-			ft_putchar(' ', flags);
+			ft_putchar_p(' ', flags);
 		i++;
 	}
 }
@@ -60,11 +60,11 @@ void	print_string(va_list ap, t_flags *flags)
 		else
 		{
 			if (!flags->precision_dot)
-				ft_putstr(flags->str, flags);
+				ft_putstr_p(flags->str, flags);
 		}
 	}
 	if (flags->fmt_char == 'c')
-		ft_putchar(flags->c, flags);
+		ft_putchar_p(flags->c, flags);
 	if (flags->left_adjustment)
 		print_string_field(flags);
 }

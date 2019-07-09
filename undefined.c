@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 13:19:10 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/25 15:23:44 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:00:17 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void	print_dpercent_field(t_flags *flags)
 
 	i = 0;
 	if (flags->left_adjustment)
-		ft_putchar('%', flags);
+		ft_putchar_p('%', flags);
 	while (i < flags->field_length - 1)
 	{
 		if (flags->pad_zero)
-			ft_putchar('0', flags);
+			ft_putchar_p('0', flags);
 		else
-			ft_putchar(' ', flags);
+			ft_putchar_p(' ', flags);
 		i++;
 	}
 	if (!flags->left_adjustment)
-		ft_putchar('%', flags);
+		ft_putchar_p('%', flags);
 }
 
 void	get_dpercent_field(const char *str, t_flags *flags)
@@ -46,7 +46,7 @@ void	get_dpercent_field(const char *str, t_flags *flags)
 			flags->left_adjustment = 1;
 		if (str[i] >= '1' && str[i] <= '9' && !flags->precision_dot)
 		{
-			flags->field_length = ft_atoi(str + i);
+			flags->field_length = ft_atoi_p(str + i);
 			break ;
 		}
 		i++;
@@ -65,17 +65,17 @@ void	print_invalid_fmt_field(t_flags *flags)
 	(contains("hlLjtzq", flags->c) && !flags->left_adjustment))
 	{
 		if (!contains("hlLjtzq", flags->c) && flags->left_adjustment)
-			ft_putchar(flags->c, flags);
+			ft_putchar_p(flags->c, flags);
 		while (i < flags->field_length - 1)
 		{
 			if (flags->pad_zero)
-				ft_putchar('0', flags);
+				ft_putchar_p('0', flags);
 			else
-				ft_putchar(' ', flags);
+				ft_putchar_p(' ', flags);
 			i++;
 		}
 		if (!contains("hlLjtzq", flags->c) && !flags->left_adjustment)
-			ft_putchar(flags->c, flags);
+			ft_putchar_p(flags->c, flags);
 	}
 }
 
@@ -94,7 +94,7 @@ int		get_invalid_fmt_field(const char *str, t_flags *flags)
 			flags->precision_dot = 1;
 		if (str[i] >= '1' && str[i] <= '9' && !flags->precision_dot)
 		{
-			flags->field_length = ft_atoi(str + i);
+			flags->field_length = ft_atoi_p(str + i);
 			i += num_length(flags->field_length) - 1;
 		}
 		i++;

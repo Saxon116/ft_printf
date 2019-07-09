@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:58:03 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/26 17:38:27 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:00:20 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		parse_format(va_list ap, char c, const char *fmt, t_flags *flags)
 				flags->space++;
 		}
 		else
-			ft_putchar(*fmt, flags);
+			ft_putchar_p(*fmt, flags);
 	}
 	return (flags->space);
 }
@@ -98,7 +98,7 @@ int		ft_printf(const char *fmt, ...)
 	init_flag_struct(&flags);
 	flags->chars_printed = 0;
 	va_start(ap, fmt);
-	while (*fmt && !(ft_strlen(fmt) == 1 && fmt[0] == '%'))
+	while (*fmt && !(ft_strlen_p(fmt) == 1 && fmt[0] == '%'))
 	{
 		if (*fmt == '%')
 		{
@@ -108,7 +108,7 @@ int		ft_printf(const char *fmt, ...)
 			flags->space = 0;
 		}
 		else
-			ft_putchar(*fmt, flags);
+			ft_putchar_p(*fmt, flags);
 		fmt++;
 	}
 	chars_printed = flags->chars_printed;

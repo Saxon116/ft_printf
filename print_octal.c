@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 13:37:48 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/25 18:39:28 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:01:10 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	print_ull_if_needed(t_flags *flags)
 		{
 			if (flags->positive_sign && !flags->is_neg
 			&& flags->left_adjustment && !flags->precision_dot)
-				ft_putchar('+', flags);
-			ft_putnbr(flags->i, flags);
+				ft_putchar_p('+', flags);
+			ft_putnbr_p(flags->i, flags);
 		}
 	}
 }
@@ -52,7 +52,7 @@ int		check_octal_format(va_list ap, t_flags *flags)
 	{
 		while (i < flags->field_length)
 		{
-			ft_putchar(' ', flags);
+			ft_putchar_p(' ', flags);
 			i++;
 		}
 		return (0);
@@ -75,12 +75,12 @@ void	print_octal(va_list ap, t_flags *flags)
 		flags->field_length--;
 	flags->str = ft_utoa_base(flags->i, 8, 0);
 	if (!flags->left_adjustment)
-		print_field(flags, ft_strlen(flags->str));
+		print_field(flags, ft_strlen_p(flags->str));
 	if (flags->hash && !flags->precision_dot && flags->i)
-		ft_putchar('0', flags);
+		ft_putchar_p('0', flags);
 	if (flags->precision_dot)
-		print_precision(flags, ft_strlen(flags->str));
-	ft_putstr(flags->str, flags);
+		print_precision(flags, ft_strlen_p(flags->str));
+	ft_putstr_p(flags->str, flags);
 	free(flags->str);
 	if (flags->left_adjustment)
 		print_field(flags, 0);

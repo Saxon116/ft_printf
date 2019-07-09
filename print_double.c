@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 17:45:50 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/25 15:14:36 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:00:13 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	print_double_field(int num_length, t_flags *flags)
 		- flags->positive_sign - flags->is_neg)
 	{
 		if (flags->pad_zero)
-			ft_putchar('0', flags);
+			ft_putchar_p('0', flags);
 		else
-			ft_putchar(' ', flags);
+			ft_putchar_p(' ', flags);
 		i++;
 	}
 }
@@ -37,15 +37,15 @@ void	ft_putdbl(t_flags *flags, int *array, long long num)
 	if (!flags->left_adjustment)
 		print_double_field(num_length(num), flags);
 	if (flags->positive_sign && num >= 0)
-		ft_putchar('+', flags);
+		ft_putchar_p('+', flags);
 	if (flags->is_neg)
-		ft_putchar('-', flags);
-	ft_putnbr(num, flags);
-	ft_putchar('.', flags);
+		ft_putchar_p('-', flags);
+	ft_putnbr_p(num, flags);
+	ft_putchar_p('.', flags);
 	i = 0;
 	while (i < flags->precision_val)
 	{
-		ft_putnbr(array[i], flags);
+		ft_putnbr_p(array[i], flags);
 		i++;
 	}
 	if (flags->left_adjustment)
@@ -89,7 +89,7 @@ void	store_precision(long long num, long double m, t_flags *flags)
 		m *= 10;
 		if ((int)m >= 5)
 			num++;
-		ft_putnbr(num, flags);
+		ft_putnbr_p(num, flags);
 		return ;
 	}
 	while (i < flags->precision_val)

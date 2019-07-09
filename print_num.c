@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 13:43:18 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/26 16:47:24 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:00:15 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_num(va_list ap, t_flags *flags)
 		&& flags->precision_val == 0)
 		{
 			while ((flags->i)++ < flags->field_length)
-				ft_putchar(' ', flags);
+				ft_putchar_p(' ', flags);
 			return ;
 		}
 		if (flags->i < 0)

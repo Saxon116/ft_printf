@@ -6,13 +6,13 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 21:59:32 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/25 14:33:51 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/07/09 15:50:13 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_strlen(const char *str)
+int	ft_strlen_p(const char *str)
 {
 	int i;
 

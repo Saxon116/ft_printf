@@ -6,13 +6,13 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 10:44:13 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/04 15:11:12 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/07/09 15:49:50 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_putchar(char c, t_flags *flags)
+void	ft_putchar_p(char c, t_flags *flags)
 {
 	flags->chars_printed++;
 	write(1, &c, 1);

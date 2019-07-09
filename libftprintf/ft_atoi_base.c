@@ -6,7 +6,7 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 12:52:32 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/25 14:46:02 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:00:19 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ long long			ft_atoi_base(char *nb, int base)
 	long long	length;
 
 	if (base == 10)
-		return (ft_atoi(nb));
+		return (ft_atoi_p(nb));
 	while (*nb == ' ' || *nb == '\t' || *nb == '\n'
 			|| *nb == '\v' || *nb == '\r' || *nb == '\f')
 		nb++;

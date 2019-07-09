@@ -6,9 +6,10 @@
 /*   By: nkellum <nkellum@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:21:44 by nkellum           #+#    #+#             */
-/*   Updated: 2019/04/26 17:27:56 by nkellum          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:00:10 by nkellum          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "ft_printf.h"
 
@@ -37,7 +38,7 @@ int		return_num_in_fmt(t_flags *flags, int startindex, int endindex)
 	char	*str;
 
 	str = ft_strsub(flags->fmt_str, startindex, endindex - startindex);
-	num = ft_atoi(str);
+	num = ft_atoi_p(str);
 	free(str);
 	return (num);
 }
